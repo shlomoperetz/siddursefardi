@@ -10,6 +10,32 @@
   --radius: 14px;
 }
 
+@font-face {
+  font-family: "David Libre";
+  src: url("/fonts/DavidLibre-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "David Libre";
+  src: url("/fonts/DavidLibre-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/fonts/CrimsonPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/fonts/CrimsonPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+
 html,body{height:100%;}
 body{
   margin:0;
@@ -71,3 +97,4 @@ body.night{
   --border:#242428;
   --link:#8ab4f8;
 }
+
