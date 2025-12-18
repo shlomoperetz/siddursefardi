@@ -1,0 +1,9 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en"
+title = "Siddur Sefardi"
+theme = "minisiddur"
+
+[params]
+  defaultLocationName = "Jerusalem"
+  defaultLat = 31.778
+  defaultLon = 35.235
