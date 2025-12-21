@@ -1,3 +1,49 @@
+font-family: "David Libre", serif;
+
+@font-face {
+  font-family: "David Libre";
+  src: url("/fonts/DavidLibre-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "David Libre";
+  src: url("/fonts/DavidLibre-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/fonts/CrimsonPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;  font-display: swap;
+}
+
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/fonts/CrimsonPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-size: var(--font);
+  line-height: var(--line);
+  font-family: "David Libre", serif;
+}
+
+}
+
+
 :root{
   --bg:#ffffff;
   --fg:#111111;
@@ -5,36 +51,10 @@
   --card:#fafafa;
   --border:#e7e7e7;
   --link:#0b57d0;
-  --font: 20px;
-  --line: 1.9;
+  --font: 19px;
+  --line: 1.7;
   --radius: 14px;
 }
-
-@font-face {
-  font-family: "David Libre";
-  src: url("/fonts/DavidLibre-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "David Libre";
-  src: url("/fonts/DavidLibre-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Crimson Pro";
-  src: url("/fonts/CrimsonPro-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Crimson Pro";
-  src: url("/fonts/CrimsonPro-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-
 
 html,body{height:100%;}
 body{
@@ -98,3 +118,22 @@ body.night{
   --link:#8ab4f8;
 }
 
+.title,
+.topbar,
+.controls,
+.footer {
+  font-family: "Crimson Pro", serif;
+}
+.title{
+  margin:0 0 12px 0;
+  font-size: 1.2em;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+}
