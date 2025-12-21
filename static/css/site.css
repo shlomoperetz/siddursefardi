@@ -1,35 +1,17 @@
-font-family: "David Libre", serif;
-
 @font-face {
-  font-family: "David Libre";
-  src: url("/fonts/DavidLibre-Regular.ttf") format("truetype");
+  font-family: "Noto Serif Hebrew";
+  src: url("/fonts/NotoSerifHebrew-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: "David Libre";
-  src: url("/fonts/DavidLibre-Bold.ttf") format("truetype");
-  font-weight: 700;
+  font-family: "Noto Serif Hebrew";
+  src: url("/fonts/NotoSerifHebrew-Medium.ttf") format("truetype");
+  font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
 
-@font-face {
-  font-family: "Crimson Pro";
-  src: url("/fonts/CrimsonPro-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;  font-display: swap;
-}
-
-@font-face {
-  font-family: "Crimson Pro";
-  src: url("/fonts/CrimsonPro-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
 
 body {
   margin:0;
@@ -39,7 +21,6 @@ body {
   line-height: var(--line);
   font-family: "David Libre", serif;
 }
-
 
 :root{
   --bg:#ffffff;
@@ -119,7 +100,6 @@ body.night{
 .topbar,
 .controls,
 .footer {
-  font-family: "Crimson Pro", serif;
 }
 .title{
   margin:0 0 12px 0;
@@ -252,12 +232,17 @@ body.night{
 
 /* Force a single typographic voice everywhere */
 body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h5, h6 {
-  font-family: "David Libre", serif;
+  font-family: "Noto Serif Hebrew", serif;
 }
 
 /* ===== Liturgical text (with nikud) ===== */
 .tefila{
-  margin: 0 0 18px;
-  font-size: 1em;
-  line-height: 1-85;
+  margin: 0 0 22px;
+  font-size: 1.07em;
+  line-height: 2.05;
+  font-family: "Noto Serif Hebrew", serif;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-rendering: optimizeLegibility;
 }
+
