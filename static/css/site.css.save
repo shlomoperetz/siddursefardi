@@ -1,0 +1,74 @@
+
+  --bg:#ffffff;
+  --fg:#111111;
+  --muted:#666;
+  --card:#fafafa;
+  --border:#e7e7e7;
+  --link:#0b57d0;
+  --font: 20px;
+  --line: 1.9;
+  --radius: 14px;
+}
+
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-size: var(--font);
+  line-height: var(--line);
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", "Noto Sans", sans-serif;
+}
+
+a{color:var(--link); text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.topbar{
+  position: sticky; top:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px;
+  background: var(--bg);
+  border-bottom:1px solid var(--border);
+}
+
+.brand{font-weight:700;}
+.controls{display:flex; gap:8px;}
+.btn{
+  border:1px solid var(--border);
+  background: var(--card);
+  padding:8px 10px;
+  border-radius: 10px;
+  cursor:pointer;
+  font-size: 0.95em;
+}
+
+.page{max-width: 720px; margin: 18px auto; padding: 0 12px;}
+.card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+}
+
+.title{margin:0 0 12px 0; font-size: 1.25em;}
+.content p{margin: 0 0 14px 0;}
+.list{margin:0; padding:0 18px;}
+.list li{margin: 8px 0;}
+
+.footer{
+  max-width: 720px;
+  margin: 18px auto 28px;
+  padding: 0 12px;
+  color: var(--muted);
+}
+
+/* Night mode */
+body.night{
+  --bg:#0b0b0c;
+  --fg:#f2f2f2;
+  --muted:#b8b8b8;
+  --card:#121214;
+  --border:#242428;
+  --link:#8ab4f8;
+}
+https://github.com/shlomoperetz/siddursefardi

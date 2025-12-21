@@ -32,15 +32,12 @@ font-family: "David Libre", serif;
 }
 
 body {
-  body{
   margin:0;
   background:var(--bg);
   color:var(--fg);
   font-size: var(--font);
   line-height: var(--line);
   font-family: "David Libre", serif;
-}
-
 }
 
 
@@ -136,4 +133,131 @@ body.night{
   border:1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px 18px;
+}
+
+.rubric{
+  margin: 10px 0 14px;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+.line{
+  margin: 0 0 14px 0;
+}
+
+/* =========================
+   Bottom navigation (Siddur)
+   ========================= */
+
+.bottombar{
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  height: 56px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  z-index: 50;
+}
+
+.bbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.95em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.bbtn:hover{
+  background: var(--card);
+}
+
+/* Deja espacio para que el menú no tape el texto */
+.page{
+  padding-bottom: 72px;
+}
+
+.bbtn.active{
+  font-weight: 600;
+  border-top: 2px solid var(--fg);
+}
+
+/* In-page index (Shacharit) */
+.toc{
+  margin: 6px 0 14px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  font-size: 0.95em;
+}
+
+.toc a{
+  margin-inline-end: 10px;
+  color: var(--link);
+}
+
+/* ===== In-page TOC (compact) ===== */
+.toc{
+  margin: 8px 0 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.toc ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toc li{ margin: 0; padding: 0; }
+
+.toc a{
+  display: inline-block;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.toc a:hover{
+  background: var(--card);
+}
+
+/* Headings inside siddur content */
+.content h2{
+  margin: 18px 0 10px;
+  font-size: 1.18em;
+  font-weight: 400;   /* NO bold */
+}
+
+.content h3{
+  margin: 16px 0 8px;
+  font-size: 1.05em;
+  font-weight: 400;
+}
+
+
+/* Force a single typographic voice everywhere */
+body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h5, h6 {
+  font-family: "David Libre", serif;
+}
+
+/* ===== Liturgical text (with nikud) ===== */
+.tefila{
+  margin: 0 0 18px;
+  font-size: 1em;
+  line-height: 1.75;
 }

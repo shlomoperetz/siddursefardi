@@ -1,5 +1,0 @@
----
-title: "Minjá"
----
-
-(Contenido aquí)

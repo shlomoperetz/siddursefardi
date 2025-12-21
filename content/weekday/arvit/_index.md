@@ -1,5 +1,0 @@
----
-title: "Arvit"
----
-
-(Contenido aquí)

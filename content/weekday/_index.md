@@ -1,8 +1,8 @@
 ---
-title: "Weekday"
+title: "חול"
 ---
 
-Elige:
-- [Shajarit](/weekday/shacharit/)
-- [Minjá](/weekday/mincha/)
-- [Arvit](/weekday/arvit/)
+- [שחרית](/weekday/shacharit/)
+- [מנחה](/weekday/mincha/)
+- [ערבית](/weekday/arvit/)
+

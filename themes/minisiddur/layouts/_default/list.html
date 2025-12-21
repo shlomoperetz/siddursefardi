@@ -1,10 +1,18 @@
 {{ define "main" }}
-  <section class="card">
+  <section class="card" data-page>
     <h1 class="title">{{ .Title }}</h1>
-    <ul class="list">
-      {{ range .Pages }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-      {{ end }}
-    </ul>
+
+    <div class="content" id="content">
+      {{ .Content }}
+    </div>
+
+    {{ if .Pages }}
+      <ul class="list">
+        {{ range .Pages }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    {{ end }}
   </section>
 {{ end }}
+
