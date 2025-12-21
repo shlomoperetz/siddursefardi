@@ -238,11 +238,10 @@ body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h
 /* ===== Liturgical text (with nikud) ===== */
 .tefila{
   margin: 0 0 22px;
-  font-size: 1.07em;
-  line-height: 2.05;
+  font-size: 1.10em;
+  line-height: 2.10;
   font-family: "Noto Serif Hebrew", serif;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.03em;
-  text-rendering: optimizeLegibility;
 }
 
