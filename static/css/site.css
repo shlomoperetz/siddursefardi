@@ -245,7 +245,6 @@ body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h
   letter-spacing: 0.03em;
 }
 
-/* Bottom bar - clean */
 .bottombar{
   position: fixed;
   bottom: 0;
@@ -253,30 +252,24 @@ body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h
   right: 0;
   z-index: 999;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 10px;
   background: rgba(255,255,255,.96);
-  border-top: 1px solid rgba(0,0,0,.10);
+  border-top: 1px solid rgba(0,0,0,.12);
 }
 
 .bbtn{
-  display: block;
-  padding: 10px 12px;
-  border-radius: 12px;
+  flex: 1;
+  text-align: center;
+  padding: 14px 0;
   text-decoration: none;
   font-weight: 700;
-  opacity: .85;
-  white-space: nowrap;
+  opacity: .7;
 }
 
 .bbtn.active{
   opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 6px;
+  border-top: 2px solid rgba(0,0,0,.65);
 }
 
-.page{
-  padding-bottom: 80px;
-}
+/* para que el texto no quede tapado por la barra */
+.page{ padding-bottom: 70px; }
+
