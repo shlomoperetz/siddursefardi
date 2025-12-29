@@ -24,8 +24,6 @@
       <small>© {{ now.Year }} · Shlomo Peretz</small>
     </footer>
 <nav class="bottombar" aria-label="Siddur navigation">
-  <a class="bbtn {{ if .IsHome }}active{{ end }}" href="/">בית</a>
-  <a class="bbtn {{ if eq .RelPermalink "/now/" }}active{{ end }}" href="/now/">עכשיו</a>
   <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שחרית</a>
   <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מנחה</a>
   <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">ערבית</a>
