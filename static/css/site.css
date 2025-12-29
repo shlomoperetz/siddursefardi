@@ -1,7 +1,11 @@
+/* ===============================
+   FONTS
+================================ */
+
 @font-face {
   font-family: "Noto Serif Hebrew";
   src: url("/fonts/NotoSerifHebrew-Regular.ttf") format("truetype");
-  font-weight:600;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -12,267 +16,152 @@
   font-style: normal;
 }
 
+/* ===============================
+   ROOT VARIABLES
+================================ */
 
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-size: var(--font);
-  line-height: var(--line);
-  font-family: "David Libre", serif;
-}
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --card: #fafafa;
+  --border: #e7e7e7;
+  --link: #0b57d0;
 
-:root{
-  --bg:#ffffff;
-  --fg:#111111;
-  --muted:#666;
-  --card:#fafafa;
-  --border:#e7e7e7;
-  --link:#0b57d0;
-  --font: 19px;
-  --line: 1.7;
+  /* Tamaño como antes (más siddur) */
+  --font: 16.5px;
+  --line: 1.6;
+
   --radius: 14px;
 }
 
-html,body{height:100%;}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
+/* ===============================
+   BASE
+================================ */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
   font-size: var(--font);
   line-height: var(--line);
-  font-family: system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", "Noto Sans", sans-serif;
+  font-family: "Noto Serif Hebrew", serif;
+  direction: rtl;
 }
 
-a{color:var(--link); text-decoration:none;}
-a:hover{text-decoration:underline;}
+/* ===============================
+   LAYOUT
+================================ */
 
-.topbar{
-  position: sticky; top:0;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px 14px;
-  background: var(--bg);
-  border-bottom:1px solid var(--border);
-}
-
-.brand{font-weight:700;}
-.controls{display:flex; gap:8px;}
-.btn{
-  border:1px solid var(--border);
-  background: var(--card);
-  padding:8px 10px;
-  border-radius: 10px;
-  cursor:pointer;
-  font-size: 0.95em;
-}
-
-.page{max-width: 720px; margin: 18px auto; padding: 0 12px;}
-.card{
-  background: var(--card);
-  border:1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px 16px;
-}
-
-.title{margin:0 0 12px 0; font-size: 1.25em;}
-.content p{margin: 0 0 14px 0;}
-.list{margin:0; padding:0 18px;}
-.list li{margin: 8px 0;}
-
-.footer{
+main {
   max-width: 720px;
-  margin: 18px auto 28px;
-  padding: 0 12px;
-  color: var(--muted);
+  margin: 0 auto;
+  padding: 48px 20px 32px;
 }
 
-/* Night mode */
-body.night{
-  --bg:#0b0b0c;
-  --fg:#f2f2f2;
-  --muted:#b8b8b8;
-  --card:#121214;
-  --border:#242428;
-  --link:#8ab4f8;
-}
+/* ===============================
+   CARD (texto del siddur)
+================================ */
 
-.title,
-.topbar,
-.controls,
-.footer {
-}
-.title{
-  margin:0 0 12px 0;
-  font-size: 1.2em;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-.card{
-  background: var(--card);
-  border:1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 18px;
-}
-
-.rubric{
-  margin: 10px 0 14px;
-  color: var(--muted);
-  font-size: 0.92em;
-}
-
-.line{
-  margin: 0 0 14px 0;
-}
-
-/* =========================
-   Bottom navigation (Siddur)
-   ========================= */
-
-.bottombar{
-  position: fixed;
-  inset-inline: 0;
-  bottom: 0;
-  height: 56px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
+.card {
   background: var(--bg);
-  border-top: 1px solid var(--border);
-  z-index: 50;
+  border-radius: var(--radius);
 }
 
-.bbtn{
+/* ===============================
+   TITLES
+================================ */
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin: 0 0 1.2em;
+}
+
+/* ===============================
+   TEXT
+================================ */
+
+p {
+  margin: 0 0 1.2em;
+}
+
+.small {
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+/* ===============================
+   LINKS
+================================ */
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   BOTTOM NAV (3 botones, NO fijo)
+================================ */
+
+.bottom-nav {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%;
+  gap: 32px;
+  padding: 24px 0 32px;
   font-size: 0.95em;
+  border-top: 1px solid var(--border);
+}
+
+/* Botones simples, sin caja */
+.bottom-nav a {
   color: var(--fg);
   text-decoration: none;
 }
 
-.bbtn:hover{
-  background: var(--card);
+.bottom-nav a:hover {
+  text-decoration: underline;
 }
 
-/* Deja espacio para que el menú no tape el texto */
-.page{
-  padding-bottom: 72px;
-}
+/* ===============================
+   CONTROLS (+A / -A / dark)
+================================ */
 
-.bbtn.active{
-  font-weight: 600;
-  border-top: 2px solid var(--fg);
-}
-
-/* In-page index (Shacharit) */
-.toc{
-  margin: 6px 0 14px;
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--card);
-  font-size: 0.95em;
-}
-
-.toc a{
-  margin-inline-end: 10px;
-  color: var(--link);
-}
-
-/* ===== In-page TOC (compact) ===== */
-.toc{
-  margin: 8px 0 16px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card);
-}
-
-.toc ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.controls {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
-.toc li{ margin: 0; padding: 0; }
-
-.toc a{
-  display: inline-block;
-  padding: 8px 10px;
+.controls button {
+  background: transparent;
   border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--fg);
-  text-decoration: none;
-  font-size: 0.95em;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 0.9em;
+  cursor: pointer;
 }
 
-.toc a:hover{
+.controls button:hover {
   background: var(--card);
 }
 
-/* Headings inside siddur content */
-.content h2{
-  margin: 18px 0 10px;
-  font-size: 1.18em;
-  font-weight:600;   /* NO bold */
+/* ===============================
+   DARK MODE (opcional)
+================================ */
+
+body.dark {
+  --bg: #0f0f0f;
+  --fg: #eaeaea;
+  --muted: #999;
+  --card: #1a1a1a;
+  --border: #2a2a2a;
+  --link: #6ea8ff;
 }
-
-.content h3{
-  margin: 16px 0 8px;
-  font-size: 1.05em;
-  font-weight:600;
-}
-
-
-/* Force a single typographic voice everywhere */
-body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h5, h6 {
-  font-family: "Noto Serif Hebrew", serif;
-}
-
-/* ===== Liturgical text (with nikud) ===== */
-.tefila{
-  margin: 0 0 22px;
-  font-size: 1.10em;
-  line-height: 2.10;
-  font-family: "Noto Serif Hebrew", serif;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
-.bottombar{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  z-index: 999;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  background: rgba(255,255,255,.96);
-  border-top: 1px solid rgba(0,0,0,.12);
-}
-
-.bbtn{
-  flex: 1 1 0;
-  text-align: center;
-  padding: 14px 0;
-  text-decoration: none;
-  font-weight: 700;
-  opacity: .75;
-}
-
-
-.bbtn.active{
-  opacity: 1;
-  border-top: 2px solid rgba(0,0,0,.65);
-}
-
-/* para que el texto no quede tapado por la barra */
-.page{ padding-bottom: 72px; }
 

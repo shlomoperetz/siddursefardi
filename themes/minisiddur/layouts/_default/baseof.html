@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=2">
   </head>
   <body>
     <header class="topbar">
@@ -19,15 +19,18 @@
     <main class="page">
       {{ block "main" . }}{{ end }}
     </main>
-
+    
     <footer class="footer">
       <small>© {{ now.Year }} · Shlomo Peretz</small>
     </footer>
-<nav class="bottombar" aria-label="Siddur navigation">
-  <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
-  <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
-  <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
-</nav>
+
+    <nav class="bottombar" aria-label="Siddur navigation">
+      <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
+      <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
+      <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
+    </nav>
+
     <script src="/js/ui.js" defer></script>
+
   </body>
 </html>
