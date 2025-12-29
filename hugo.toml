@@ -2,6 +2,7 @@ baseURL = "http://localhost:1313/"
 languageCode = "en"
 title = "Siddur Sefardi"
 theme = "minisiddur"
+enableRedirects = true
 
 [params]
   defaultLocationName = "Jerusalem"

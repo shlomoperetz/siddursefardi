@@ -1,4 +1,4 @@
 ---
-title: "סידור ספרדי"
+redirect: "/weekday/arvit/"
 ---
 
