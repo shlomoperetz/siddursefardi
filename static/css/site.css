@@ -1,14 +1,14 @@
 @font-face {
   font-family: "Noto Serif Hebrew";
   src: url("/fonts/NotoSerifHebrew-Regular.ttf") format("truetype");
-  font-weight: 400;
+  font-weight:600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Noto Serif Hebrew";
   src: url("/fonts/NotoSerifHebrew-Medium.ttf") format("truetype");
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -220,13 +220,13 @@ body.night{
 .content h2{
   margin: 18px 0 10px;
   font-size: 1.18em;
-  font-weight: 400;   /* NO bold */
+  font-weight:600;   /* NO bold */
 }
 
 .content h3{
   margin: 16px 0 8px;
   font-size: 1.05em;
-  font-weight: 400;
+  font-weight:600;
 }
 
 
@@ -245,3 +245,38 @@ body, button, input, select, textarea, a, nav, header, footer, h1, h2, h3, h4, h
   letter-spacing: 0.03em;
 }
 
+/* Bottom bar - clean */
+.bottombar{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px;
+  background: rgba(255,255,255,.96);
+  border-top: 1px solid rgba(0,0,0,.10);
+}
+
+.bbtn{
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+.bbtn.active{
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.page{
+  padding-bottom: 80px;
+}
