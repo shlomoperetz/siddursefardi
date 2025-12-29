@@ -17,151 +17,220 @@
 }
 
 /* ===============================
-   ROOT VARIABLES
+   THEME VARIABLES
 ================================ */
 
-:root {
-  --bg: #ffffff;
-  --fg: #111111;
-  --muted: #666666;
-  --card: #fafafa;
-  --border: #e7e7e7;
-  --link: #0b57d0;
+:root{
+  --bg:#ffffff;
+  --fg:#111111;
+  --muted:#666666;
 
-  /* Tamaño como antes (más siddur) */
-  --font: 16.5px;
-  --line: 1.6;
+  --card:#ffffff;
+  --border:#e7e7e7;
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
 
-  --radius: 14px;
+  --link:#0b57d0;
+
+  /* “como siddur”: no enorme */
+  --font: 17px;
+  --line: 1.75;
+
+  --radius: 16px;
+  --max: 860px;          /* ancho “libro” */
+  --padX: 22px;          /* padding lateral móvil */
+}
+
+/* Dark mode (si lo usas con body.dark) */
+body.dark{
+  --bg:#0f0f0f;
+  --fg:#ededed;
+  --muted:#a0a0a0;
+
+  --card:#141414;
+  --border:#2a2a2a;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+
+  --link:#6ea8ff;
 }
 
 /* ===============================
    BASE
 ================================ */
 
-html, body {
-  height: 100%;
-}
+html, body { height:100%; }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-size: var(--font);
-  line-height: var(--line);
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-size:var(--font);
+  line-height:var(--line);
+
+  /* Si tú preferías David Libre, cámbialo aquí */
   font-family: "Noto Serif Hebrew", serif;
+
   direction: rtl;
+  text-rendering: optimizeLegibility;
 }
 
+/* Evita “estiramientos” raros del theme */
+* { box-sizing: border-box; }
+
+/* Links */
+a{ color:var(--link); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
 /* ===============================
-   LAYOUT
+   TOP BAR (título + controles)
+   (funciona aunque tu HTML sea distinto)
 ================================ */
 
-main {
-  max-width: 720px;
+/* En muchos themes el header es .site-header / header / .topbar */
+header, .site-header, .topbar{
+  max-width: var(--max);
   margin: 0 auto;
-  padding: 48px 20px 32px;
+  padding: 18px var(--padX) 8px;
 }
 
-/* ===============================
-   CARD (texto del siddur)
-================================ */
-
-.card {
-  background: var(--bg);
-  border-radius: var(--radius);
+/* Título (tu “Siddur Sefardi”) */
+.site-title, header a.title, header .title, .brand, .logo {
+  font-weight: 700;
 }
 
-/* ===============================
-   TITLES
-================================ */
-
-h1, h2, h3 {
-  font-weight: 600;
-  margin: 0 0 1.2em;
+/* Controles (+A/-A/🌙) */
+.controls, .toolbar, .top-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:flex-start;
+  margin-top: 8px;
 }
 
-/* ===============================
-   TEXT
-================================ */
-
-p {
-  margin: 0 0 1.2em;
-}
-
-.small {
-  color: var(--muted);
-  font-size: 0.9em;
-}
-
-/* ===============================
-   LINKS
-================================ */
-
-a {
-  color: var(--link);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ===============================
-   BOTTOM NAV (3 botones, NO fijo)
-================================ */
-
-.bottom-nav {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  padding: 24px 0 32px;
-  font-size: 0.95em;
-  border-top: 1px solid var(--border);
-}
-
-/* Botones simples, sin caja */
-.bottom-nav a {
-  color: var(--fg);
-  text-decoration: none;
-}
-
-.bottom-nav a:hover {
-  text-decoration: underline;
-}
-
-/* ===============================
-   CONTROLS (+A / -A / dark)
-================================ */
-
-.controls {
-  display: flex;
-  gap: 10px;
-}
-
-.controls button {
+/* Botoncitos */
+.controls button, .toolbar button, .top-controls button,
+.controls a, .toolbar a, .top-controls a{
   background: transparent;
   border: 1px solid var(--border);
+  color: var(--fg);
   border-radius: 10px;
   padding: 6px 10px;
-  font-size: 0.9em;
+  font-size: 0.92em;
+  line-height: 1;
   cursor: pointer;
 }
 
-.controls button:hover {
-  background: var(--card);
+.controls button:hover, .toolbar button:hover, .top-controls button:hover,
+.controls a:hover, .toolbar a:hover, .top-controls a:hover{
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  text-decoration:none;
 }
 
 /* ===============================
-   DARK MODE (opcional)
+   MAIN “SIDUR CARD”
 ================================ */
 
-body.dark {
-  --bg: #0f0f0f;
-  --fg: #eaeaea;
-  --muted: #999;
-  --card: #1a1a1a;
-  --border: #2a2a2a;
-  --link: #6ea8ff;
+main{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 22px var(--padX) 18px;
 }
 
+/* Tu contenido puede vivir en: article / .content / .post / .page */
+article, .content, .post, .page, .siddur, .entry-content{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 42px 56px;
+}
+
+/* En pantallas pequeñas: padding más corto */
+@media (max-width: 720px){
+  article, .content, .post, .page, .siddur, .entry-content{
+    padding: 28px 20px;
+  }
+}
+
+/* Texto hebreo: alineación y legibilidad */
+article, .content, .post, .page, .siddur, .entry-content{
+  text-align: right;
+  direction: rtl;
+}
+
+/* Títulos */
+h1,h2,h3{
+  margin: 0 0 0.9em;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h1{ font-size: 2.0em; }
+h2{ font-size: 1.45em; margin-top: 1.2em; }
+h3{ font-size: 1.15em; margin-top: 1.1em; }
+
+p{
+  margin: 0 0 1.25em;
+}
+
+.small, .muted{
+  color: var(--muted);
+  font-size: 0.95em;
+}
+
+/* Listas (si salen) */
+ul, ol{ margin: 0 0 1.2em; padding-right: 1.2em; }
+
+/* Separadores */
+hr{
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 26px 0;
+}
+
+/* ===============================
+   BOTTOM NAV (3 botones centrados)
+   IMPORTANTE: NO fixed, NO tapa contenido
+================================ */
+
+/* Si tu nav es footer/nav con enlaces: lo centramos */
+footer, .bottom-nav, .bottombar, nav.bottom, nav.bottom-nav{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--padX) 26px;
+}
+
+/* El contenedor de los 3 botones */
+.bottom-nav, .bottombar, nav.bottom, nav.bottom-nav, footer nav{
+  display:flex;
+  justify-content:center;
+  gap: 40px;
+  align-items:center;
+}
+
+/* Los links */
+.bottom-nav a, .bottombar a, nav.bottom a, nav.bottom-nav a, footer nav a{
+  color: var(--fg);
+  text-decoration:none;
+  font-size: 1.02em;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.bottom-nav a:hover, .bottombar a:hover, nav.bottom a:hover, nav.bottom-nav a:hover, footer nav a:hover{
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  text-decoration:none;
+}
+
+/* ===============================
+   SAFETY: por si el theme metió algo fixed
+   (esto evita “la barra que tapa texto”)
+================================ */
+
+.bottom-nav.fixed, .bottombar.fixed, .sticky, .is-sticky{
+  position: static !important;
+}
+
+/* Si el theme usa un footer fixed por id/class típico */
+#bottom-nav, #bottombar, #footerbar{
+  position: static !important;
+}
