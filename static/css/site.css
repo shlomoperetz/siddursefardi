@@ -204,3 +204,81 @@ nav.bottombar a.bbtn.active::before{
   nav.bottombar{ gap:22px; }
   nav.bottombar a.bbtn{ font-size:14px; }
 }
+
+/* ======================================================
+   Mobile comfort pass — keep minimal, make it usable
+   ====================================================== */
+
+/* Topbar: more air + better alignment */
+header.topbar .inner{
+  padding: 12px var(--pad);
+  gap: 16px;
+}
+
+/* Title block: clearer hierarchy */
+header.topbar .brand{
+  line-height: 1.15;
+}
+
+header.topbar .brand .title{
+  font-size: 16px;
+  font-weight: 650;
+}
+
+header.topbar .brand .byline{
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* Controls: bigger tap targets, still minimal */
+nav.controls{
+  gap: 10px;
+}
+
+nav.controls .btn{
+  font-size: 16px;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px; /* only for focus/comfort */
+}
+
+/* Add a little separation under header so content doesn't feel glued */
+.page{
+  padding-top: calc(var(--pad) + 6px);
+}
+
+/* Bottom bar: bigger text + margins + spread out */
+nav.bottombar{
+  padding: 12px var(--pad) calc(12px + env(safe-area-inset-bottom));
+}
+
+nav.bottombar{
+  justify-content: space-between;
+  gap: 0;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+nav.bottombar a.bbtn{
+  font-size: 16px;
+  padding: 8px 0;
+}
+
+/* Active line: slightly closer and thinner (more elegant) */
+nav.bottombar a.bbtn.active::before{
+  top: -7px;
+  height: 2px;
+  opacity: .85;
+}
+
+/* Mobile-specific: even more comfortable */
+@media (max-width: 520px){
+  header.topbar .inner{ padding: 14px 14px; }
+  nav.controls .btn{ width: 40px; height: 40px; font-size: 17px; }
+  nav.bottombar{ padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
+  nav.bottombar a.bbtn{ font-size: 17px; }
+}
