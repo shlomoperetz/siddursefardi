@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-FINAL-SCROLL
+// BUILD_TOKEN: 2025-12-30-FINAL-SCROLL-FIX
 
 let fontSize = 21;
 
@@ -69,6 +69,9 @@ window.addEventListener('load', () => {
   
   initNavigation();
   updateBookmarkButton();
+  
+  // NO hacer visible la nav-mini al cargar
+  // Se mostrará solo cuando el usuario scrollee hacia arriba
 });
 
 let positionMarker = null;
