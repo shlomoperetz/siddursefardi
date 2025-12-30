@@ -137,3 +137,108 @@ header > *{
 }
 
 
+/* =========================
+   Siddur Sefardi — clean reading layout
+   ========================= */
+:root{
+  --bg:#ffffff;
+  --fg:#111111;
+  --muted:#666;
+  --border:#e7e7e7;
+  --card:#fafafa;
+
+  --maxw:760px;
+  --pad:18px;
+  --radius:14px;
+
+  --font:19px;
+  --line:1.78;
+
+  --he-font:"David Libre","Noto Serif Hebrew","Noto Sans Hebrew",serif;
+  --ui-font:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+
+  --bottom-h:56px;
+}
+
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--he-font);
+  font-size:var(--font);
+  line-height:var(--line);
+  text-rendering:optimizeLegibility;
+  -webkit-text-size-adjust:100%;
+}
+
+main, .page, .content, article{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:var(--pad);
+  padding-bottom:calc(var(--bottom-h) + 26px + env(safe-area-inset-bottom));
+  direction:rtl;
+  unicode-bidi:plaintext;
+}
+
+h1{
+  font-size:1.6em;
+  margin:0.75em 0 0.25em;
+  font-weight:700;
+}
+h2{
+  font-size:1.12em;
+  margin:1.35em 0 0.4em;
+  font-weight:650;
+  color:var(--muted);
+}
+
+p{ margin:0.6em 0; }
+
+hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:1.2em 0;
+}
+
+a{ color:#0b57d0; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+header.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  font-family:var(--ui-font);
+}
+header.topbar .inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:10px var(--pad);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+header.topbar a, header.topbar button{
+  font-family:var(--ui-font);
+  font-size:14px;
+  line-height:1;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--fg);
+  padding:8px 10px;
+  border-radius:999px;
+}
+header.topbar a:hover, header.topbar button:hover{
+  background:#f3f3f3;
+  text-decoration:none;
+}
+
+@media(max-width:520px){
+  :root{ --font:18px; --pad:14px; }
+  h1{ font-size:1.45em; }
+}
