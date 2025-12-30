@@ -282,3 +282,6 @@ nav.bottombar a.bbtn.active::before{
   nav.bottombar{ padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
   nav.bottombar a.bbtn{ font-size: 17px; }
 }
+
+nav.bottombar a.bbtn{ color: #777; }
+nav.bottombar a.bbtn.active{ color: var(--fg); }
