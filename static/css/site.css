@@ -1,25 +1,26 @@
 /* ======================================================
-   Siddur Sefardi — minimal, elegant, no “button blobs”
-   Single source of truth (no duplicates)
+   Siddur Sefardi — BOOK UI (single source of truth)
+   Comfortable, minimal, elegant, practical on mobile
    ====================================================== */
 
 :root{
   --bg:#ffffff;
   --fg:#111111;
-  --muted:#6b6b6b;
+  --muted:#7a7a7a;
   --border:#e7e7e7;
   --link:#0b57d0;
 
-  --maxw: 720px;
-  --pad: 18px;
+  --maxw: 760px;
+  --pad: 16px;
 
-  --font: 19px;
-  --line: 1.82;
+  --font: 20px;          /* bigger by default */
+  --line: 1.9;
 
   --he-font: "David Libre","Noto Serif Hebrew","Noto Sans Hebrew",serif;
   --ui-font: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 
-  --bottombar-h: 44px;   /* content height, not counting safe area */
+  --topbar-h: 72px;
+  --bottombar-h: 72px;
 }
 
 /* Base */
@@ -38,30 +39,30 @@ body{
 a{ color:var(--link); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
-/* Main column (Hugo minisiddur content is inside .page) */
+/* Content column */
 .page{
   max-width:var(--maxw);
   margin:0 auto;
-  padding:var(--pad);
+  padding: calc(var(--pad) + 10px) var(--pad);
   padding-bottom: calc(var(--bottombar-h) + 34px + env(safe-area-inset-bottom));
   direction:rtl;
   unicode-bidi:plaintext;
 }
 
-/* Typography — calm, siddur-like */
+/* Typography */
 .page h1{
-  font-size:1.55em;
-  margin:0.85em 0 0.25em;
+  font-size:1.65em;
+  margin:0.9em 0 0.25em;
   font-weight:650;
   letter-spacing:.2px;
 }
 .page h2{
-  font-size:1.08em;
-  margin:1.35em 0 0.35em;
+  font-size:1.12em;
+  margin:1.4em 0 0.35em;
   font-weight:600;
   color:var(--muted);
 }
-.page p{ margin:0.62em 0; }
+.page p{ margin:0.65em 0; }
 .page hr{
   border:0;
   border-top:1px solid var(--border);
@@ -69,285 +70,61 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ======================================================
-   Top bar: title + subtle controls (A− A+ ☾)
+   TOPBAR — spaced, not glued, finger-friendly
    ====================================================== */
 
-header.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background: rgba(255,255,255,.90);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--border);
-  font-family:var(--ui-font);
-}
-
-header.topbar .inner{
-  max-width:var(--maxw);
-  margin:0 auto;
-  padding:10px var(--pad);
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:12px;
-}
-
-/* Title block */
-header.topbar .brand{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  line-height:1.1;
-  text-align: right;
-}
-header.topbar .brand .title{
-  font-size:15px;
-  font-weight:600;
-  color:var(--fg);
-  letter-spacing:.2px;
-}
-header.topbar .brand .byline{
-  font-size:12px;
-  color:var(--muted);
-}
-header.topbar .brand .byline a{
-  color:inherit;
-  text-decoration:none;
-}
-header.topbar .brand .byline a:hover{
-  text-decoration:underline;
-}
-
-/* Controls — minimal, no boxes */
-nav.controls{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-nav.controls .btn{
-  appearance:none;
-  border:0;
-  background:none;
-  padding:4px 2px;
-
-  font-family:var(--ui-font);
-  font-size:14px;
-  font-weight:600;
-  letter-spacing:.2px;
-
-  color:var(--muted);
-  cursor:pointer;
-}
-nav.controls .btn:hover{ color:var(--fg); }
-nav.controls .btn:focus-visible{
-  outline:2px solid rgba(17,17,17,.25);
-  outline-offset:3px;
-  border-radius:8px;
-}
-
-/* ======================================================
-   Bottom bar: text-only tabs + subtle active line
-   ====================================================== */
-
-nav.bottombar{
-  position:fixed;
-  left:0; right:0; bottom:0;
-  z-index:120;
-
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid var(--border);
-
-  padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
-}
-
-nav.bottombar{
-  display:flex;
-  justify-content:center;
-  gap:32px;
-}
-
-nav.bottombar a.bbtn{
-  position:relative;
-  padding:6px 2px;
-
-  font-family:var(--he-font);
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:.2px;
-
-  color:var(--muted);
-  text-decoration:none;
-}
-
-nav.bottombar a.bbtn:hover{
-  color:var(--fg);
-}
-
-nav.bottombar a.bbtn.active{
-  color:var(--fg);
-}
-
-nav.bottombar a.bbtn.active::before{
-  content:"";
-  position:absolute;
-  left:0; right:0;
-  top:-9px;
-  height:2px;
-  background:var(--fg);
-  opacity:.9;
-}
-
-/* Mobile tuning */
-@media (max-width:520px){
-  :root{ --font:18px; --pad:14px; }
-  nav.bottombar{ gap:22px; }
-  nav.bottombar a.bbtn{ font-size:14px; }
-}
-
-/* ======================================================
-   Mobile comfort pass — keep minimal, make it usable
-   ====================================================== */
-
-/* Topbar: more air + better alignment */
-header.topbar .inner{
-  padding: 12px var(--pad);
-  gap: 16px;
-}
-
-/* Title block: clearer hierarchy */
-header.topbar .brand{
-  line-height: 1.15;
-}
-
-header.topbar .brand .title{
-  font-size: 16px;
-  font-weight: 650;
-}
-
-header.topbar .brand .byline{
-  font-size: 13px;
-  margin-top: 2px;
-}
-
-/* Controls: bigger tap targets, still minimal */
-nav.controls{
-  gap: 10px;
-}
-
-nav.controls .btn{
-  font-size: 16px;
-  padding: 0;
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px; /* only for focus/comfort */
-}
-
-/* Add a little separation under header so content doesn't feel glued */
-.page{
-  padding-top: calc(var(--pad) + 6px);
-}
-
-/* Bottom bar: bigger text + margins + spread out */
-nav.bottombar{
-  padding: 12px var(--pad) calc(12px + env(safe-area-inset-bottom));
-}
-
-nav.bottombar{
-  justify-content: space-between;
-  gap: 0;
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-
-nav.bottombar a.bbtn{
-  font-size: 16px;
-  padding: 8px 0;
-}
-
-/* Active line: slightly closer and thinner (more elegant) */
-nav.bottombar a.bbtn.active::before{
-  top: -7px;
-  height: 2px;
-  opacity: .85;
-}
-
-/* Mobile-specific: even more comfortable */
-@media (max-width: 520px){
-  header.topbar .inner{ padding: 14px 14px; }
-  nav.controls .btn{ width: 40px; height: 40px; font-size: 17px; }
-  nav.bottombar{ padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
-  nav.bottombar a.bbtn{ font-size: 17px; }
-}
-
-/* ======================================================
-   BOOK UI — practical, minimal, elegant (mobile-first)
-   ====================================================== */
-
-/* Make content breathe like a book */
-:root{
-  --pad: 18px;
-  --maxw: 760px;
-
-  --topbar-h: 64px;
-  --bottombar-h: 64px;
-
-  --ui-fg: var(--fg);
-  --ui-muted: #7a7a7a;
-}
-
-/* ========= TOPBAR ========= */
 header.topbar{
   position: sticky;
   top: 0;
   z-index: 200;
   height: var(--topbar-h);
 
-  display: flex;
-  align-items: center;
-
   background: rgba(255,255,255,.96);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+
+  display:flex;
+  align-items:center;
 }
 
-/* Better inner spacing and safe margins */
-header.topbar .inner{
-  width: 100%;
+/* Your current HTML is:
+   <header class="topbar">
+     <div class="brand">...</div>
+     <nav class="controls">...</nav>
+   </header>
+   There is no .inner — so we style header directly.
+*/
+header.topbar{
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 var(--pad);
+  box-sizing: border-box;
 
-  display: flex;
-  align-items: center;
+  display:flex;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
 }
 
-/* Brand block: calm, not screaming */
+/* Brand: title + byline */
 header.topbar .brand{
-  display: flex;
+  display:flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   line-height: 1.1;
   text-align: right;
+  font-family: var(--ui-font);
 }
 
 header.topbar .brand .title{
-  font-family: var(--ui-font);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 650;
-  letter-spacing: .2px;
-  color: var(--ui-fg);
+  color: var(--fg);
 }
 
 header.topbar .brand .byline{
-  font-family: var(--ui-font);
-  font-size: 13px;
-  color: var(--ui-muted);
+  font-size: 14px;
+  color: var(--muted);
 }
 
 header.topbar .brand .byline a{
@@ -358,42 +135,43 @@ header.topbar .brand .byline a:hover{
   text-decoration: underline;
 }
 
-/* Controls: bigger, separated from right edge, still minimal */
+/* Controls: big targets, not stuck to edge */
 nav.controls{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-inline-start: 10px; /* creates breathing room vs brand */
+  display:flex;
+  align-items:center;
+  gap: 12px;
 }
 
 nav.controls .btn{
-  appearance: none;
-  border: 0;
-  background: transparent;
+  appearance:none;
+  border:0;
+  background:transparent;
 
-  width: 44px;
-  height: 44px;          /* finger-friendly */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  width: 48px;
+  height: 48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 
   font-family: var(--ui-font);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 650;
-  color: var(--ui-muted);
+  color: var(--muted);
 
-  border-radius: 12px;   /* only for focus comfort */
-  cursor: pointer;
+  border-radius: 14px;
+  cursor:pointer;
 }
 
-nav.controls .btn:hover{ color: var(--ui-fg); }
+nav.controls .btn:hover{ color: var(--fg); }
 nav.controls .btn:focus-visible{
-  outline: 2px solid rgba(17,17,17,.25);
-  outline-offset: 2px;
+  outline:2px solid rgba(17,17,17,.25);
+  outline-offset:2px;
 }
 
-/* ========= BOTTOMBAR ========= */
-/* Full-width bar, but content aligned to book width */
+/* ======================================================
+   BOTTOMBAR — 3 equal thirds, larger text, single line
+   ====================================================== */
+
 nav.bottombar{
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -402,92 +180,69 @@ nav.bottombar{
   background: rgba(255,255,255,.96);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
-}
 
-nav.bottombar{
   height: calc(var(--bottombar-h) + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
-}
 
-nav.bottombar{
-  display: grid;
-  place-items: center;
-}
-
-/* inner 3-column grid aligned to max width */
-nav.bottombar{
-  --inner-pad: var(--pad);
-}
-nav.bottombar{
-  /* Use a pseudo-inner via padding + max-width */
-  padding-left: var(--inner-pad);
-  padding-right: var(--inner-pad);
-}
-
-nav.bottombar{
-  /* 3 equal columns */
+  display:grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  gap: 0;
+
   max-width: var(--maxw);
   margin: 0 auto;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  box-sizing: border-box;
 }
 
-/* Text-only tabs, large, centered */
 nav.bottombar a.bbtn{
   position: relative;
   height: var(--bottombar-h);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   font-family: var(--he-font);
-  font-size: 18px;      /* bigger */
+  font-size: 20px;
   font-weight: 650;
 
-  color: var(--ui-muted);
-  text-decoration: none;
+  color: var(--muted);
+  text-decoration:none;
 }
 
-/* Active: one clean line occupying its third (no extra translucent lines) */
+/* Active: one clean line (top of its third) */
 nav.bottombar a.bbtn.active{
-  color: var(--ui-fg);
+  color: var(--fg);
 }
 nav.bottombar a.bbtn.active::before{
-  content: "";
-  position: absolute;
-  top: 0;              /* line at top of bar */
+  content:"";
+  position:absolute;
+  top: 0;
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--ui-fg);
+  background: var(--fg);
 }
 
-/* Content gets proper space so bars never cover text */
-.page{
-  padding-top: calc(var(--pad) + 8px);
-  padding-bottom: calc(var(--bottombar-h) + 34px + env(safe-area-inset-bottom));
-}
-
-/* Mobile tuning */
-@media (max-width: 520px){
-  :root{ --pad: 16px; }
-  header.topbar{ height: 68px; }
-  nav.controls .btn{ width: 46px; height: 46px; font-size: 19px; }
-  nav.bottombar a.bbtn{ font-size: 19px; }
-}
-
-/* ========= Hide UI while reading (controlled by JS) ========= */
-body.ui-hidden header.topbar{
-  transform: translateY(-110%);
-  transition: transform .18s ease;
-}
-body.ui-hidden nav.bottombar{
-  transform: translateY(110%);
-  transition: transform .18s ease;
-}
+/* ======================================================
+   Hide UI while reading (JS toggles body.ui-hidden)
+   ====================================================== */
 header.topbar, nav.bottombar{
   transition: transform .18s ease;
 }
+body.ui-hidden header.topbar{ transform: translateY(-110%); }
+body.ui-hidden nav.bottombar{ transform: translateY(110%); }
 
+/* Mobile tuning */
+@media (max-width:520px){
+  :root{
+    --pad: 14px;
+    --font: 19px;
+    --topbar-h: 76px;
+    --bottombar-h: 72px;
+  }
+  header.topbar .brand .title{ font-size: 17px; }
+  header.topbar .brand .byline{ font-size: 13px; }
+  nav.bottombar a.bbtn{ font-size: 19px; }
+}
