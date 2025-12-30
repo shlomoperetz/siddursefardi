@@ -293,7 +293,7 @@ nav.controls .btn:focus-visible{
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 115px;
+  bottom: 82px;
   z-index: 215;
   
   height: var(--navmini-h);
@@ -473,7 +473,7 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
   }
   
   .nav-mini {
-    bottom: 94px;
+    bottom: 84px;
     height: 60px;
     padding-top: 4px;
     padding-bottom: 30px;
