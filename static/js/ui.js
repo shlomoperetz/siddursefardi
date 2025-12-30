@@ -52,3 +52,21 @@
     else cont.remove(); // hide if nothing to continue
   }
 })();
+
+// Hide top/bottom bars while reading (show only near top)
+(() => {
+  const THRESHOLD = 40; // px from top
+  const cls = "ui-hidden";
+
+  function apply() {
+    if (window.scrollY > THRESHOLD) {
+      document.body.classList.add(cls);
+    } else {
+      document.body.classList.remove(cls);
+    }
+  }
+
+  window.addEventListener("scroll", apply, { passive: true });
+  window.addEventListener("load", apply);
+  apply();
+})();
