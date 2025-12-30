@@ -297,7 +297,7 @@ nav.controls .btn:focus-visible{
   z-index: 215;
   
   height: var(--navmini-h);
-  background: rgba(255,255,255,.98);
+  background: rgba(255,255,255,1);
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(128,128,128,.12);
   
@@ -323,13 +323,13 @@ nav.controls .btn:focus-visible{
 
 @media (prefers-color-scheme: dark) {
   .nav-mini:not(.light-mode .nav-mini) {
-    background: rgba(10,10,10,.98);
+    background: rgba(10,10,10,1);
     border-top-color: rgba(128,128,128,.2);
   }
 }
 
 .nav-mini.dark-mode {
-  background: rgba(10,10,10,.98);
+  background: rgba(10,10,10,1);
   border-top-color: rgba(128,128,128,.2);
 }
 
