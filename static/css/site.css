@@ -1,6 +1,5 @@
-/* BUILD_TOKEN: 2025-12-30-FINAL-FIXED
-   Siddur Sefardi — BOOK UI (single source of truth)
-   Comfortable, minimal, elegant, practical on mobile
+/* BUILD_TOKEN: 2025-12-30-FINAL-COMPLETE
+   Siddur Sefardi — nav-mini oculta por defecto
 */
 
 :root{
@@ -8,16 +7,12 @@
   --fg:#111111;
   --muted:#5a5a5a;
   --link:#0b57d0;
-
   --maxw: 760px;
   --pad: 20px;
-
   --font: 21px;
   --line: 1.9;
-
   --he-font: "David Libre","Noto Serif Hebrew","Noto Sans Hebrew",serif;
   --ui-font: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-
   --topbar-h: 84px;
   --bottombar-h: 82px;
   --navmini-h: 56px;
@@ -58,13 +53,12 @@ a:hover{ text-decoration:underline; }
   max-width:var(--maxw);
   margin:0 auto;
   padding: calc(var(--pad) + 18px) var(--pad);
-  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 40px + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--bottombar-h) + 40px + env(safe-area-inset-bottom));
   direction:rtl;
   unicode-bidi:plaintext;
 }
 
 .page h1{ font-size:1.75em; margin:0.9em 0 0.25em; font-weight:650; }
-
 .page h2{ 
   font-size:0.9em;
   font-weight:500;
@@ -74,19 +68,17 @@ a:hover{ text-decoration:underline; }
   text-transform:uppercase;
   letter-spacing:0.05em;
 }
-
 .page p{ margin:0.65em 0; }
 .page hr{ border:0; border-top:1px solid rgba(128,128,128,.15); margin:1.15em 0; }
 
 .reading-progress {
   position: fixed;
-  bottom: 171px;
+  bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom));
   left: 0;
   width: 3px;
-  height: calc(100vh - var(--topbar-h) - 171px);
+  height: calc(100vh - var(--topbar-h) - var(--bottombar-h));
   background: rgba(128,128,128,.06);
   z-index: 199;
-  transition: opacity .3s ease;
 }
 
 .position-marker {
@@ -295,25 +287,27 @@ nav.controls .btn:focus-visible{
   right: 0;
   bottom: 82px;
   z-index: 215;
-  
   height: var(--navmini-h);
   background: rgba(255,255,255,1);
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(128,128,128,.12);
-  
   padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
   padding-top: 2px;
   padding-bottom: 25px;
   box-sizing: border-box;
-  
   display: grid;
   grid-template-columns: 56px 1fr 56px;
   gap: 10px;
   align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(200%);
+  transition: all .4s ease;
 }
 
 .nav-mini.visible {
   opacity: 1;
+  pointer-events: auto;
   transform: translateY(0);
 }
 
@@ -333,18 +327,14 @@ nav.controls .btn:focus-visible{
   appearance: none;
   border: 0;
   background: transparent;
-  
   width: 52px;
   height: 52px;
-  
   display: flex;
   align-items: center;
   justify-content: center;
-  
   font-size: 26px;
   font-weight: 600;
   color: var(--muted);
-  
   border-radius: 12px;
   cursor: pointer;
   transition: all .15s ease;
@@ -363,24 +353,19 @@ nav.controls .btn:focus-visible{
   appearance: none;
   border: 0;
   background: rgba(212,175,55,.1);
-  
   height: 50px;
   padding: 0 16px;
-  
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  
   font-family: var(--he-font);
   font-size: 16px;
   font-weight: 600;
   color: #c49a2e;
-  
   border-radius: 12px;
   cursor: pointer;
   transition: all .15s ease;
-  
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -461,7 +446,11 @@ html.ui-hidden nav.bottombar,
 body.ui-hidden nav.bottombar{ transform: translateY(130%); }
 
 html.ui-hidden .nav-mini,
-body.ui-hidden .nav-mini{ transform: translateY(200%); }
+body.ui-hidden .nav-mini{ 
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(200%);
+}
 
 @media (max-width:520px){
   :root{
@@ -479,13 +468,8 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
     padding-bottom: 30px;
   }
   
-  .reading-progress {
-    bottom: 164px;
-    height: calc(100vh - var(--topbar-h) - 164px);
-  }
-  
   .page {
-    padding-bottom: calc(var(--bottombar-h) + 60px + 30px + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--bottombar-h) + 30px + env(safe-area-inset-bottom));
   }
   
   nav.bottombar a.bbtn{ font-size: 24px; }
