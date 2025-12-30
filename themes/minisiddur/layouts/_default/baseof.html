@@ -11,7 +11,7 @@
     
     <header class="topbar">
       <nav class="controls">
-        <button class="btn" onclick="toggleSidebar()">☰</button>
+        <button class="btn" onclick="toggleUI()">☰</button>
         <button class="btn" onclick="toggleDarkMode()" title="Cambiar tema">◐</button>
         <button class="btn" onclick="adjustFont(-1)">A−</button>
         <button class="btn" onclick="adjustFont(1)">A+</button>
@@ -22,25 +22,36 @@
         <div class="byline">
           <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
         </div>
-        <div class="current-section" id="currentSection"></div>
       </div>
     </header>
     
-    <!-- Sidebar de navegación -->
+    <!-- Sidebar de navegación (móvil) -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h3>ניווט מהיר</h3>
-        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
       </div>
       <nav class="sidebar-nav" id="sidebarNav">
-        <!-- Se genera dinámicamente con JavaScript -->
+        <!-- Se genera dinámicamente -->
       </nav>
     </aside>
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
     
     <main class="page">
       {{ block "main" . }}{{ end }}
     </main>
+    
+    <!-- Mini barra de navegación interna -->
+    <nav class="nav-mini" id="navMini">
+      <button class="nav-mini-btn" onclick="scrollToTop()" title="Volver arriba">↑</button>
+      
+      <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
+        <span id="currentSectionText">...</span>
+        <span class="arrow">▼</span>
+      </button>
+      
+      <button class="nav-mini-btn" onclick="openSidebar()" title="Ir a sección">☰</button>
+    </nav>
     
     <nav class="bottombar" aria-label="Siddur navigation">
       <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>

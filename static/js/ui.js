@@ -13,42 +13,53 @@ function toggleUI() {
   document.body.classList.toggle('ui-hidden');
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Toggle modo oscuro con 3 estados: auto → dark → light → auto
 function toggleDarkMode() {
   const root = document.documentElement;
   const topbar = document.querySelector('header.topbar');
   const bottombar = document.querySelector('nav.bottombar');
+  const navMini = document.querySelector('.nav-mini');
   
   if (root.classList.contains('dark-mode')) {
     root.classList.remove('dark-mode');
     root.classList.add('light-mode');
     if (topbar) topbar.classList.remove('dark-mode');
     if (bottombar) bottombar.classList.remove('dark-mode');
+    if (navMini) navMini.classList.remove('dark-mode');
     localStorage.setItem('theme', 'light');
   } else if (root.classList.contains('light-mode')) {
     root.classList.remove('light-mode');
     if (topbar) topbar.classList.remove('dark-mode');
     if (bottombar) bottombar.classList.remove('dark-mode');
+    if (navMini) navMini.classList.remove('dark-mode');
     localStorage.removeItem('theme');
   } else {
     root.classList.add('dark-mode');
     if (topbar) topbar.classList.add('dark-mode');
     if (bottombar) bottombar.classList.add('dark-mode');
+    if (navMini) navMini.classList.add('dark-mode');
     localStorage.setItem('theme', 'dark');
   }
 }
 
+// Restaurar preferencias guardadas
 window.addEventListener('load', () => {
   const savedTheme = localStorage.getItem('theme');
   const savedFontSize = localStorage.getItem('siddur_fontSize');
   const root = document.documentElement;
   const topbar = document.querySelector('header.topbar');
   const bottombar = document.querySelector('nav.bottombar');
+  const navMini = document.querySelector('.nav-mini');
   
   if (savedTheme === 'dark') {
     root.classList.add('dark-mode');
     if (topbar) topbar.classList.add('dark-mode');
     if (bottombar) bottombar.classList.add('dark-mode');
+    if (navMini) navMini.classList.add('dark-mode');
   } else if (savedTheme === 'light') {
     root.classList.add('light-mode');
   }
@@ -59,6 +70,7 @@ window.addEventListener('load', () => {
   }
 });
 
+// ========== MARCADOR DE POSICIÓN ==========
 let positionMarker = null;
 
 function savePosition() {
@@ -120,6 +132,7 @@ window.addEventListener('scroll', () => {
 
 window.addEventListener('load', restorePosition);
 
+// ========== BARRA DE PROGRESO VERTICAL ==========
 window.addEventListener('scroll', () => {
   const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -132,6 +145,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// ========== AUTO-HIDE UI AL SCROLLEAR ==========
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
@@ -144,17 +158,24 @@ window.addEventListener('scroll', () => {
 });
 
 // ========== SIDEBAR DE NAVEGACIÓN ==========
-function toggleSidebar() {
+function openSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
   
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('visible');
+  sidebar.classList.add('open');
+  overlay.classList.add('visible');
   
-  // Generar índice si no existe
   if (!document.querySelector('.sidebar-nav a')) {
     generateSidebarNav();
   }
+}
+
+function closeSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  
+  sidebar.classList.remove('open');
+  overlay.classList.remove('visible');
 }
 
 function generateSidebarNav() {
@@ -171,14 +192,14 @@ function generateSidebarNav() {
     link.onclick = (e) => {
       e.preventDefault();
       h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      toggleSidebar();
+      closeSidebar();
     };
     
     sidebarNav.appendChild(link);
   });
 }
 
-// Detectar sección actual mientras se hace scroll
+// ========== MINI BARRA DE NAVEGACIÓN ==========
 let sectionCheckInterval;
 window.addEventListener('scroll', () => {
   clearTimeout(sectionCheckInterval);
@@ -187,30 +208,34 @@ window.addEventListener('scroll', () => {
 
 function updateCurrentSection() {
   const h2Elements = document.querySelectorAll('.page h2');
-  const currentSectionEl = document.getElementById('currentSection');
+  const currentSectionText = document.getElementById('currentSectionText');
+  const navMini = document.getElementById('navMini');
   const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
   
-  if (!currentSectionEl) return;
+  if (!currentSectionText || !navMini) return;
   
   let currentSection = '';
   let activeIndex = -1;
   
   h2Elements.forEach((h2, index) => {
     const rect = h2.getBoundingClientRect();
-    if (rect.top < window.innerHeight / 3 && rect.top > -100) {
+    if (rect.top < window.innerHeight / 3 && rect.top > -200) {
       currentSection = h2.textContent;
       activeIndex = index;
     }
   });
   
-  if (currentSection) {
-    currentSectionEl.textContent = currentSection;
-    currentSectionEl.style.opacity = '1';
-  } else {
-    currentSectionEl.style.opacity = '0';
+  // Mostrar mini barra si hay h2 en la página
+  if (h2Elements.length > 0) {
+    navMini.classList.add('visible');
   }
   
-  // Marcar sección activa en sidebar
+  if (currentSection) {
+    currentSectionText.textContent = currentSection;
+  } else if (h2Elements.length > 0) {
+    currentSectionText.textContent = h2Elements[0].textContent;
+  }
+  
   sidebarLinks.forEach((link, index) => {
     if (index === activeIndex) {
       link.classList.add('active');
@@ -220,7 +245,12 @@ function updateCurrentSection() {
   });
 }
 
+function toggleSectionMenu() {
+  openSidebar();
+}
+
 // Inicializar al cargar
 window.addEventListener('load', () => {
   updateCurrentSection();
+  generateSidebarNav();
 });

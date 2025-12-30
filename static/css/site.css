@@ -394,3 +394,139 @@ body.ui-hidden nav.bottombar{ transform: translateY(130%); }
     font-size: 11px;
   }
 }
+
+/* Mini barra de navegación interna (encima de bottombar) */
+.nav-mini {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--bottombar-h);
+  z-index: 215;
+  
+  height: 50px;
+  background: rgba(255,255,255,.98);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(128,128,128,.12);
+  
+  padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
+  box-sizing: border-box;
+  
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  gap: 8px;
+  align-items: center;
+  
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all .3s ease;
+}
+
+.nav-mini.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-mini:not(.light-mode .nav-mini) {
+    background: rgba(10,10,10,.98);
+    border-top-color: rgba(128,128,128,.2);
+  }
+}
+
+.nav-mini.dark-mode {
+  background: rgba(10,10,10,.98);
+  border-top-color: rgba(128,128,128,.2);
+}
+
+.nav-mini-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  
+  width: 50px;
+  height: 42px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--muted);
+  
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.nav-mini-btn:hover {
+  color: var(--fg);
+  background: rgba(128,128,128,.08);
+}
+
+.nav-mini-section {
+  appearance: none;
+  border: 0;
+  background: rgba(212,175,55,.1);
+  
+  height: 42px;
+  padding: 0 16px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  font-family: var(--he-font);
+  font-size: 15px;
+  font-weight: 600;
+  color: #c49a2e;
+  
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s ease;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-mini-section:hover {
+  background: rgba(212,175,55,.18);
+}
+
+.nav-mini-section .arrow {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Ocultar mini barra cuando UI está oculta */
+html.ui-hidden .nav-mini,
+body.ui-hidden .nav-mini {
+  transform: translateY(200%);
+}
+
+/* Ajustar padding del contenido para la mini barra */
+.page {
+  padding-bottom: calc(var(--bottombar-h) + 50px + 44px + env(safe-area-inset-bottom)) !important;
+}
+
+/* Ajustar barra de progreso */
+.reading-progress {
+  height: calc(100vh - var(--topbar-h) - var(--bottombar-h) - 50px) !important;
+}
+
+@media (max-width: 520px) {
+  .nav-mini {
+    height: 48px;
+  }
+  
+  .nav-mini-section {
+    font-size: 14px;
+    padding: 0 12px;
+  }
+  
+  .page {
+    padding-bottom: calc(var(--bottombar-h) + 48px + 44px + env(safe-area-inset-bottom)) !important;
+  }
+}
