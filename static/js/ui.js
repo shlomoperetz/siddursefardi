@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-FINAL-V4
+// BUILD_TOKEN: 2025-12-30-FINAL-SCROLL
 
 let fontSize = 21;
 
@@ -85,17 +85,14 @@ function toggleBookmark() {
   const bookmarkPos = localStorage.getItem('siddur_bookmark_pos');
   
   if (bookmarkPage === currentPage && bookmarkPos) {
-    // Ya hay bookmark - ir a él
     window.scrollTo({ top: parseInt(bookmarkPos), behavior: 'smooth' });
     showPositionMarker();
   } else {
-    // Guardar nuevo bookmark
     const scrollPos = window.pageYOffset;
     localStorage.setItem('siddur_bookmark_page', currentPage);
     localStorage.setItem('siddur_bookmark_pos', scrollPos);
     updateBookmarkButton();
     
-    // Feedback visual
     const btn = document.getElementById('bookmarkBtn');
     if (btn) {
       btn.style.transform = 'scale(1.15)';
@@ -188,16 +185,39 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// ========== SCROLL INTELIGENTE: nav-mini solo aparece al scrollear ARRIBA ==========
 let lastScroll = 0;
+let navMiniVisible = false;
+
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
+  const navMini = document.querySelector('.nav-mini');
+  
+  if (!navMini) return;
+  
+  // Scrolleando hacia ARRIBA (leyendo hacia atrás)
+  if (currentScroll < lastScroll && currentScroll > 100) {
+    if (!navMiniVisible) {
+      navMini.classList.add('visible');
+      navMiniVisible = true;
+    }
+  }
+  // Scrolleando hacia ABAJO (leyendo normal) - ocultar nav-mini
+  else if (currentScroll > lastScroll && currentScroll > 100) {
+    if (navMiniVisible) {
+      navMini.classList.remove('visible');
+      navMiniVisible = false;
+    }
+  }
+  
+  // Auto-hide topbar y bottombar
   if (currentScroll > lastScroll && currentScroll > 200) {
     document.body.classList.add('ui-hidden');
   } else if (currentScroll < lastScroll - 50) {
     document.body.classList.remove('ui-hidden');
   }
-  lastScroll = currentScroll;
   
+  lastScroll = currentScroll;
   updateCurrentSection();
 });
 
@@ -224,7 +244,6 @@ function toggleSectionMenu() {
 function initNavigation() {
   const h2Elements = document.querySelectorAll('.page h2');
   const sidebarNav = document.getElementById('sidebarNav');
-  const navMini = document.getElementById('navMini');
   
   if (!h2Elements.length) return;
   
@@ -245,10 +264,6 @@ function initNavigation() {
       sidebarNav.appendChild(link);
     }
   });
-  
-  if (navMini && h2Elements.length > 0) {
-    navMini.classList.add('visible');
-  }
   
   updateCurrentSection();
   restorePosition();
