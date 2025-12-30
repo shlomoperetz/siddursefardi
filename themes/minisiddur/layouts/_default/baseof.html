@@ -7,31 +7,34 @@
     <link rel="stylesheet" href="{{ "css/site.css" | relURL }}?v={{ now.Unix }}">
   </head>
   <body>
+    <div class="reading-progress"></div>
+    
     <header class="topbar">
-      <div class="brand">
-  <div class="title">Siddur Sefardi</div>
-  <div class="byline">
-    <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
-  </div>
-</div>
       <nav class="controls">
-        <button class="btn" id="decFont" type="button">A−</button>
-        <button class="btn" id="incFont" type="button">A+</button>
-        <button class="btn" id="toggleNight" type="button">☾</button>
+        <button class="btn" onclick="toggleUI()">☰</button>
+        <button class="btn" onclick="toggleDarkMode()" title="Cambiar tema">◐</button>
+        <button class="btn" onclick="adjustFont(-1)">A−</button>
+        <button class="btn" onclick="adjustFont(1)">A+</button>
       </nav>
+      
+      <div class="brand">
+        <div class="title">סידור ספרדי</div>
+        <div class="byline">
+          <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
+        </div>
+      </div>
     </header>
-
+    
     <main class="page">
       {{ block "main" . }}{{ end }}
     </main>
     
     <nav class="bottombar" aria-label="Siddur navigation">
-      <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
+      <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
     </nav>
-
+    
     <script src="/js/ui.js" defer></script>
-
   </body>
 </html>

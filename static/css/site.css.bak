@@ -1,0 +1,509 @@
+/* ======================================================
+   Siddur Sefardi – final clean layout (Hugo compatible)
+   ====================================================== */
+
+:root{
+  --bg:#ffffff;
+  --fg:#111111;
+  --muted:#666;
+  --border:#e6e6e6;
+
+  --maxw: 720px;
+  --pad: 18px;
+
+  --font: 19px;
+  --line: 1.8;
+
+  --he-font: "David Libre","Noto Serif Hebrew",serif;
+  --ui-font: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+
+  --bottom-h: 56px;
+}
+
+/* Base */
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--he-font);
+  font-size:var(--font);
+  line-height:var(--line);
+  text-rendering:optimizeLegibility;
+}
+
+/* Page wrapper from minisiddur */
+.page{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:var(--pad);
+  padding-bottom:calc(var(--bottom-h) + 28px);
+  direction:rtl;
+  unicode-bidi:plaintext;
+}
+
+/* Headings – siddur style */
+.page h1{
+  font-size:1.6em;
+  margin:0.8em 0 0.3em;
+  font-weight:700;
+}
+
+.page h2{
+  font-size:1.15em;
+  margin:1.4em 0 0.4em;
+  font-weight:600;
+  color:var(--muted);
+}
+
+/* Text rhythm */
+.page p{
+  margin:0.6em 0;
+}
+
+/* Horizontal rule */
+.page hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:1.2em 0;
+}
+
+/* Links */
+a{
+  color:#0b57d0;
+  text-decoration:none;
+}
+a:hover{ text-decoration:underline }
+
+/* Header (top bar if present) */
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  font-family:var(--ui-font);
+}
+
+header > *{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:10px var(--pad);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* Bottom nav */
+.bottom-nav, nav.bottom{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  height:var(--bottom-h);
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(8px);
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  font-family:var(--ui-font);
+  z-index:20;
+}
+
+.bottom-nav a,
+.bottom-nav button{
+  font-size:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:8px 12px;
+  border-radius:999px;
+  color:var(--fg);
+}
+
+.bottom-nav a:hover,
+.bottom-nav button:hover{
+  background:#f3f3f3;
+  text-decoration:none;
+}
+
+/* Mobile */
+@media(max-width:520px){
+  :root{
+    --font:18px;
+    --pad:14px;
+  }
+  .page h1{font-size:1.45em}
+}
+
+
+/* =========================
+   Siddur Sefardi — clean reading layout
+   ========================= */
+:root{
+  --bg:#ffffff;
+  --fg:#111111;
+  --muted:#666;
+  --border:#e7e7e7;
+  --card:#fafafa;
+
+  --maxw:760px;
+  --pad:18px;
+  --radius:14px;
+
+  --font:19px;
+  --line:1.78;
+
+  --he-font:"David Libre","Noto Serif Hebrew","Noto Sans Hebrew",serif;
+  --ui-font:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+
+  --bottom-h:56px;
+}
+
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--he-font);
+  font-size:var(--font);
+  line-height:var(--line);
+  text-rendering:optimizeLegibility;
+  -webkit-text-size-adjust:100%;
+}
+
+main, .page, .content, article{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:var(--pad);
+  padding-bottom:calc(var(--bottom-h) + 26px + env(safe-area-inset-bottom));
+  direction:rtl;
+  unicode-bidi:plaintext;
+}
+
+h1{
+  font-size:1.6em;
+  margin:0.75em 0 0.25em;
+  font-weight:700;
+}
+h2{
+  font-size:1.12em;
+  margin:1.35em 0 0.4em;
+  font-weight:650;
+  color:var(--muted);
+}
+
+p{ margin:0.6em 0; }
+
+hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:1.2em 0;
+}
+
+a{ color:#0b57d0; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+header.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  font-family:var(--ui-font);
+}
+header.topbar .inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:10px var(--pad);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+header.topbar a, header.topbar button{
+  font-family:var(--ui-font);
+  font-size:14px;
+  line-height:1;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--fg);
+  padding:8px 10px;
+  border-radius:999px;
+}
+header.topbar a:hover, header.topbar button:hover{
+  background:#f3f3f3;
+  text-decoration:none;
+}
+
+@media(max-width:520px){
+  :root{ --font:18px; --pad:14px; }
+  h1{ font-size:1.45em; }
+}
+
+/* =========================================================
+   Bottom "Tefilah Dock" — Shacharit / Mincha / Arvit
+   ========================================================= */
+
+.bottom-nav, nav.bottom, .nav-bottom, .bottomnav, footer.nav, .footer-nav{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  height: calc(var(--bottom-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+}
+
+.bottom-nav > *, nav.bottom > *, .nav-bottom > *, .bottomnav > *, footer.nav > *, .footer-nav > *{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  height: var(--bottom-h);
+  padding: 0 var(--pad);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  font-family: var(--ui-font);
+}
+
+.bottom-nav a, nav.bottom a, .nav-bottom a, .bottomnav a, footer.nav a, .footer-nav a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 650;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.bottom-nav a:hover, nav.bottom a:hover, .nav-bottom a:hover, .bottomnav a:hover{
+  background: #f3f3f3;
+}
+
+.bottom-nav a[aria-current="page"],
+nav.bottom a[aria-current="page"],
+.nav-bottom a[aria-current="page"]{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* Auto-active by URL (CSS only) */
+@supports(selector(:has(*))){
+  body:has(a[href*="/weekday/shacharit/"]) .bottom-nav a[href*="/weekday/shacharit/"],
+  body:has(a[href*="/weekday/mincha/"]) .bottom-nav a[href*="/weekday/mincha/"],
+  body:has(a[href*="/weekday/arvit/"]) .bottom-nav a[href*="/weekday/arvit/"]{
+    background:#111;
+    color:#fff;
+    border-color:#111;
+  }
+}
+
+@media(max-width:520px){
+  .bottom-nav a{ height:44px; }
+}
+
+/* =========================================================
+   Bottombar (Shacharit / Mincha / Arvit) — FINAL
+   HTML: <nav class="bottombar"><a class="bbtn ... active">...</a>...
+   ========================================================= */
+
+nav.bottombar{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+
+  height: calc(var(--bottom-h) + env(safe-area-inset-bottom));
+  padding: 10px var(--pad) calc(10px + env(safe-area-inset-bottom));
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-items: center;
+
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+
+  /* keep it centered like the text column */
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Buttons */
+nav.bottombar a.bbtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 10px;
+
+  font-family: var(--he-font);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .2px;
+
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  text-decoration: none;
+
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover */
+nav.bottombar a.bbtn:hover{
+  background: #f3f3f3;
+}
+
+/* Active tab */
+nav.bottombar a.bbtn.active{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* Focus (keyboard) */
+nav.bottombar a.bbtn:focus-visible{
+  outline: 3px solid rgba(11,87,208,.35);
+  outline-offset: 2px;
+}
+
+/* Make sure the content never hides behind bottom bar */
+main, .page, .content, article{
+  padding-bottom: calc(var(--bottom-h) + 40px + env(safe-area-inset-bottom));
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  nav.bottombar{
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  nav.bottombar a.bbtn{
+    height: 46px;
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   Minimal bottombar — text only, elegant
+   ========================================================= */
+
+nav.bottombar{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+
+  padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  font-family: var(--he-font);
+}
+
+/* Links as plain text */
+nav.bottombar a.bbtn{
+  position: relative;
+  padding: 6px 2px;
+
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .2px;
+
+  color: var(--muted);
+  text-decoration: none;
+}
+
+/* Hover */
+nav.bottombar a.bbtn:hover{
+  color: var(--fg);
+}
+
+/* Active — subtle top line */
+nav.bottombar a.bbtn.active{
+  color: var(--fg);
+}
+
+nav.bottombar a.bbtn.active::before{
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--fg);
+}
+
+/* Space for bottombar */
+main, .page, .content, article{
+  padding-bottom: 80px;
+}
+
+/* =========================================================
+   Top controls — minimal icons
+   ========================================================= */
+
+nav.controls{
+  display: flex;
+  gap: 14px;
+}
+
+nav.controls .btn{
+  background: none;
+  border: none;
+  padding: 4px;
+
+  font-family: var(--ui-font);
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--muted);
+  cursor: pointer;
+}
+
+nav.controls .btn:hover{
+  color: var(--fg);
+}
+
+/* =========================================================
+   Title & signature
+   ========================================================= */
+
+header.topbar{
+  border-bottom: 1px solid var(--border);
+}
+
+header.topbar h1{
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+header.topbar .signature{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+header.topbar .signature a{
+  color: inherit;
+  text-decoration: none;
+}
+
+header.topbar .signature a:hover{
+  text-decoration: underline;
+}

@@ -1,107 +1,144 @@
-(function () {
-  const LS_FONT = "ss_font_px";
-  const LS_NIGHT = "ss_night";
-  const LS_LAST = "ss_last_path";
+// Siddur Sefardi - Interactive Features
+// BUILD_TOKEN: 2025-12-30-UPDATED
 
+let fontSize = 21;
+
+function adjustFont(delta) {
+  fontSize = Math.max(16, Math.min(32, fontSize + delta));
+  document.documentElement.style.setProperty('--font', fontSize + 'px');
+  localStorage.setItem('siddur_fontSize', fontSize);
+}
+
+function toggleUI() {
+  document.body.classList.toggle('ui-hidden');
+}
+
+// Toggle modo oscuro con 3 estados: auto → dark → light → auto
+function toggleDarkMode() {
   const root = document.documentElement;
-  const body = document.body;
-
-  // Restore font size
-  const savedFont = parseInt(localStorage.getItem(LS_FONT) || "", 10);
-  if (!Number.isNaN(savedFont)) {
-    root.style.setProperty("--font", savedFont + "px");
-  }
-
-  // Restore night mode
-  const night = localStorage.getItem(LS_NIGHT);
-  if (night === "1") body.classList.add("night");
-
-  // Save last visited page (exclude homepage)
-  if (location.pathname !== "/") {
-    localStorage.setItem(LS_LAST, location.pathname);
-  }
-
-  function currentFont() {
-    const val = getComputedStyle(root).getPropertyValue("--font").trim();
-    const n = parseInt(val.replace("px",""), 10);
-    return Number.isNaN(n) ? 20 : n;
-  }
-
-  function setFont(px) {
-    const clamped = Math.max(16, Math.min(34, px));
-    root.style.setProperty("--font", clamped + "px");
-    localStorage.setItem(LS_FONT, String(clamped));
-  }
-
-  const inc = document.getElementById("incFont");
-  const dec = document.getElementById("decFont");
-  const tog = document.getElementById("toggleNight");
-
-  if (inc) inc.addEventListener("click", () => setFont(currentFont() + 1));
-  if (dec) dec.addEventListener("click", () => setFont(currentFont() - 1));
-  if (tog) tog.addEventListener("click", () => {
-    body.classList.toggle("night");
-    localStorage.setItem(LS_NIGHT, body.classList.contains("night") ? "1" : "0");
-  });
-
-  // Optional: homepage auto-continue button support
-  const cont = document.querySelector("[data-continue]");
-  if (cont) {
-    const last = localStorage.getItem(LS_LAST);
-    if (last) cont.setAttribute("href", last);
-    else cont.remove(); // hide if nothing to continue
-  }
-})();
-
-// Hide top/bottom bars while reading (show only near top)
-(() => {
-  const THRESHOLD = 40; // px from top
-  const cls = "ui-hidden";
-
-  function apply() {
-    if (window.scrollY > THRESHOLD) {
-      document.body.classList.add(cls);
-    } else {
-      document.body.classList.remove(cls);
-    }
-  }
-
-  window.addEventListener("scroll", apply, { passive: true });
-  window.addEventListener("load", apply);
-  apply();
-})();
-
-// Robust UI hide: uses IntersectionObserver on a sentinel (works even if scroll container changes)
-(() => {
-  const cls = "ui-hidden";
-
-  // Create a sentinel at top of the document
-  const sentinel = document.createElement("div");
-  sentinel.setAttribute("data-ui-sentinel", "1");
-  sentinel.style.position = "absolute";
-  sentinel.style.top = "0";
-  sentinel.style.left = "0";
-  sentinel.style.width = "1px";
-  sentinel.style.height = "1px";
-  document.body.prepend(sentinel);
-
-  const setHidden = (hidden) => {
-    document.body.classList.toggle(cls, hidden);
-    document.documentElement.classList.toggle(cls, hidden);
-  };
-
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      const topVisible = entries[0]?.isIntersecting;
-      setHidden(!topVisible);
-    }, { root: null, threshold: 0.01 });
-
-    io.observe(sentinel);
+  const topbar = document.querySelector('header.topbar');
+  const bottombar = document.querySelector('nav.bottombar');
+  
+  if (root.classList.contains('dark-mode')) {
+    root.classList.remove('dark-mode');
+    root.classList.add('light-mode');
+    if (topbar) topbar.classList.remove('dark-mode');
+    if (bottombar) bottombar.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+  } else if (root.classList.contains('light-mode')) {
+    root.classList.remove('light-mode');
+    if (topbar) topbar.classList.remove('dark-mode');
+    if (bottombar) bottombar.classList.remove('dark-mode');
+    localStorage.removeItem('theme');
   } else {
-    // Fallback
-    const apply = () => setHidden((window.scrollY || document.documentElement.scrollTop || 0) > 5);
-    window.addEventListener("scroll", apply, { passive: true });
-    window.addEventListener("load", apply);
-    apply();
+    root.classList.add('dark-mode');
+    if (topbar) topbar.classList.add('dark-mode');
+    if (bottombar) bottombar.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
   }
-})();
+}
+
+window.addEventListener('load', () => {
+  const savedTheme = localStorage.getItem('theme');
+  const savedFontSize = localStorage.getItem('siddur_fontSize');
+  const root = document.documentElement;
+  const topbar = document.querySelector('header.topbar');
+  const bottombar = document.querySelector('nav.bottombar');
+  
+  if (savedTheme === 'dark') {
+    root.classList.add('dark-mode');
+    if (topbar) topbar.classList.add('dark-mode');
+    if (bottombar) bottombar.classList.add('dark-mode');
+  } else if (savedTheme === 'light') {
+    root.classList.add('light-mode');
+  }
+  
+  if (savedFontSize) {
+    fontSize = parseInt(savedFontSize);
+    root.style.setProperty('--font', fontSize + 'px');
+  }
+});
+
+let positionMarker = null;
+
+function savePosition() {
+  const scrollPos = window.pageYOffset;
+  localStorage.setItem('siddur_position', scrollPos);
+  localStorage.setItem('siddur_page', window.location.pathname);
+}
+
+function restorePosition() {
+  const savedPage = localStorage.getItem('siddur_page');
+  const savedPos = localStorage.getItem('siddur_position');
+  
+  if (savedPage === window.location.pathname && savedPos) {
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(savedPos));
+      showPositionMarker();
+    }, 100);
+  }
+}
+
+function showPositionMarker() {
+  const paragraphs = document.querySelectorAll('.page p, .page h2');
+  const viewportMiddle = window.pageYOffset + (window.innerHeight / 2);
+  
+  let closestParagraph = null;
+  let closestDistance = Infinity;
+  
+  paragraphs.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pMiddle = window.pageYOffset + rect.top + (rect.height / 2);
+    const distance = Math.abs(pMiddle - viewportMiddle);
+    
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestParagraph = p;
+    }
+  });
+  
+  if (closestParagraph && !positionMarker) {
+    positionMarker = document.createElement('div');
+    positionMarker.className = 'position-marker';
+    closestParagraph.style.position = 'relative';
+    closestParagraph.appendChild(positionMarker);
+    
+    setTimeout(() => {
+      if (positionMarker) {
+        positionMarker.remove();
+        positionMarker = null;
+      }
+    }, 3000);
+  }
+}
+
+let saveTimeout;
+window.addEventListener('scroll', () => {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(savePosition, 2000);
+});
+
+window.addEventListener('load', restorePosition);
+
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  
+  const progressBar = document.querySelector('.reading-progress');
+  if (progressBar) {
+    progressBar.style.background = 
+      `linear-gradient(to top, #d4af37 ${scrolled}%, rgba(128,128,128,.06) ${scrolled}%)`;
+  }
+});
+
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > lastScroll && currentScroll > 200) {
+    document.body.classList.add('ui-hidden');
+  } else if (currentScroll < lastScroll - 50) {
+    document.body.classList.remove('ui-hidden');
+  }
+  lastScroll = currentScroll;
+});
