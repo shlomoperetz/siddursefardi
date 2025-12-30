@@ -142,3 +142,85 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = currentScroll;
 });
+
+// ========== SIDEBAR DE NAVEGACIÓN ==========
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('visible');
+  
+  // Generar índice si no existe
+  if (!document.querySelector('.sidebar-nav a')) {
+    generateSidebarNav();
+  }
+}
+
+function generateSidebarNav() {
+  const h2Elements = document.querySelectorAll('.page h2');
+  const sidebarNav = document.getElementById('sidebarNav');
+  
+  h2Elements.forEach((h2, index) => {
+    const id = `section-${index}`;
+    h2.id = id;
+    
+    const link = document.createElement('a');
+    link.href = `#${id}`;
+    link.textContent = h2.textContent;
+    link.onclick = (e) => {
+      e.preventDefault();
+      h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toggleSidebar();
+    };
+    
+    sidebarNav.appendChild(link);
+  });
+}
+
+// Detectar sección actual mientras se hace scroll
+let sectionCheckInterval;
+window.addEventListener('scroll', () => {
+  clearTimeout(sectionCheckInterval);
+  sectionCheckInterval = setTimeout(updateCurrentSection, 100);
+});
+
+function updateCurrentSection() {
+  const h2Elements = document.querySelectorAll('.page h2');
+  const currentSectionEl = document.getElementById('currentSection');
+  const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+  
+  if (!currentSectionEl) return;
+  
+  let currentSection = '';
+  let activeIndex = -1;
+  
+  h2Elements.forEach((h2, index) => {
+    const rect = h2.getBoundingClientRect();
+    if (rect.top < window.innerHeight / 3 && rect.top > -100) {
+      currentSection = h2.textContent;
+      activeIndex = index;
+    }
+  });
+  
+  if (currentSection) {
+    currentSectionEl.textContent = currentSection;
+    currentSectionEl.style.opacity = '1';
+  } else {
+    currentSectionEl.style.opacity = '0';
+  }
+  
+  // Marcar sección activa en sidebar
+  sidebarLinks.forEach((link, index) => {
+    if (index === activeIndex) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+// Inicializar al cargar
+window.addEventListener('load', () => {
+  updateCurrentSection();
+});

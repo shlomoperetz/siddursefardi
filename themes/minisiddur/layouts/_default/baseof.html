@@ -11,7 +11,7 @@
     
     <header class="topbar">
       <nav class="controls">
-        <button class="btn" onclick="toggleUI()">☰</button>
+        <button class="btn" onclick="toggleSidebar()">☰</button>
         <button class="btn" onclick="toggleDarkMode()" title="Cambiar tema">◐</button>
         <button class="btn" onclick="adjustFont(-1)">A−</button>
         <button class="btn" onclick="adjustFont(1)">A+</button>
@@ -22,17 +22,30 @@
         <div class="byline">
           <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
         </div>
+        <div class="current-section" id="currentSection"></div>
       </div>
     </header>
+    
+    <!-- Sidebar de navegación -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>ניווט מהיר</h3>
+        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+      </div>
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Se genera dinámicamente con JavaScript -->
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     
     <main class="page">
       {{ block "main" . }}{{ end }}
     </main>
     
     <nav class="bottombar" aria-label="Siddur navigation">
+      <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
-      <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
     </nav>
     
     <script src="/js/ui.js" defer></script>
