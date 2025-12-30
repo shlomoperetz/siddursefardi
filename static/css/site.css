@@ -1,4 +1,4 @@
-/* BUILD_TOKEN: 2025-12-30-FINAL-V4
+/* BUILD_TOKEN: 2025-12-30-FINAL-V5
    Siddur Sefardi — BOOK UI (single source of truth)
    Comfortable, minimal, elegant, practical on mobile
 */
@@ -20,7 +20,7 @@
 
   --topbar-h: 84px;
   --bottombar-h: 82px;
-  --navmini-h: 52px;
+  --navmini-h: 60px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -248,16 +248,18 @@ nav.controls .btn:focus-visible{
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .sidebar-nav a {
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
   color: var(--fg);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 500;
   transition: background .15s ease;
+  line-height: 1.4;
 }
 
 .sidebar-nav a:hover {
@@ -341,7 +343,7 @@ nav.controls .btn:focus-visible{
   align-items: center;
   justify-content: center;
   
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--muted);
   
@@ -364,7 +366,7 @@ nav.controls .btn:focus-visible{
   border: 0;
   background: rgba(212,175,55,.1);
   
-  height: 46px;
+  height: 48px;
   padding: 0 16px;
   
   display: flex;
@@ -373,7 +375,7 @@ nav.controls .btn:focus-visible{
   gap: 8px;
   
   font-family: var(--he-font);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #c49a2e;
   
@@ -469,24 +471,29 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
     --font: 20px;
     --topbar-h: 88px;
     --bottombar-h: 84px;
-    --navmini-h: 50px;
+    --navmini-h: 58px;
   }
   nav.bottombar a.bbtn{ font-size: 24px; }
   
   .nav-mini-section {
-    font-size: 14px;
+    font-size: 15px;
     padding: 0 12px;
-    height: 44px;
+    height: 46px;
   }
   
   .nav-mini-btn {
     width: 50px;
     height: 50px;
-    font-size: 22px;
+    font-size: 24px;
   }
   
   .sidebar {
     width: 280px;
     right: -300px;
+  }
+  
+  .sidebar-nav a {
+    font-size: 16px;
+    padding: 11px 13px;
   }
 }
