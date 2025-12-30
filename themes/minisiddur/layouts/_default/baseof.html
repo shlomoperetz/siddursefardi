@@ -8,7 +8,12 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="/">Siddur Sefardi</a>
+      <div class="brand">
+  <div class="title">Siddur Sefardi</div>
+  <div class="byline">
+    <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
+  </div>
+</div>
       <nav class="controls">
         <button class="btn" id="decFont" type="button">A−</button>
         <button class="btn" id="incFont" type="button">A+</button>
@@ -20,10 +25,6 @@
       {{ block "main" . }}{{ end }}
     </main>
     
-    <footer class="footer">
-      <small>© {{ now.Year }} · Shlomo Peretz</small>
-    </footer>
-
     <nav class="bottombar" aria-label="Siddur navigation">
       <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
