@@ -1,4 +1,4 @@
-/* BUILD_TOKEN: 2025-12-30-FINAL-V9
+/* BUILD_TOKEN: 2025-12-30-FINAL-V10
    Siddur Sefardi — BOOK UI (single source of truth)
    Comfortable, minimal, elegant, practical on mobile
 */
@@ -58,7 +58,7 @@ a:hover{ text-decoration:underline; }
   max-width:var(--maxw);
   margin:0 auto;
   padding: calc(var(--pad) + 18px) var(--pad);
-  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 30px + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 40px + env(safe-area-inset-bottom));
   direction:rtl;
   unicode-bidi:plaintext;
 }
@@ -80,10 +80,10 @@ a:hover{ text-decoration:underline; }
 
 .reading-progress {
   position: fixed;
-  bottom: calc(var(--bottombar-h) + var(--navmini-h) + 10px + env(safe-area-inset-bottom));
+  bottom: 158px;
   left: 0;
   width: 3px;
-  height: calc(100vh - var(--topbar-h) - var(--bottombar-h) - var(--navmini-h) - 10px);
+  height: calc(100vh - var(--topbar-h) - 158px);
   background: rgba(128,128,128,.06);
   z-index: 199;
   transition: opacity .3s ease;
@@ -293,7 +293,7 @@ nav.controls .btn:focus-visible{
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 92px;
+  bottom: 102px;
   z-index: 215;
   
   height: var(--navmini-h);
@@ -477,7 +477,11 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
   }
   
   .nav-mini {
-    bottom: 94px;
+    bottom: 104px;
+  }
+  
+  .reading-progress {
+    bottom: 168px;
   }
   
   nav.bottombar a.bbtn{ font-size: 24px; }
