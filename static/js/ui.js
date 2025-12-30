@@ -70,3 +70,38 @@
   window.addEventListener("load", apply);
   apply();
 })();
+
+// Robust UI hide: uses IntersectionObserver on a sentinel (works even if scroll container changes)
+(() => {
+  const cls = "ui-hidden";
+
+  // Create a sentinel at top of the document
+  const sentinel = document.createElement("div");
+  sentinel.setAttribute("data-ui-sentinel", "1");
+  sentinel.style.position = "absolute";
+  sentinel.style.top = "0";
+  sentinel.style.left = "0";
+  sentinel.style.width = "1px";
+  sentinel.style.height = "1px";
+  document.body.prepend(sentinel);
+
+  const setHidden = (hidden) => {
+    document.body.classList.toggle(cls, hidden);
+    document.documentElement.classList.toggle(cls, hidden);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      const topVisible = entries[0]?.isIntersecting;
+      setHidden(!topVisible);
+    }, { root: null, threshold: 0.01 });
+
+    io.observe(sentinel);
+  } else {
+    // Fallback
+    const apply = () => setHidden((window.scrollY || document.documentElement.scrollTop || 0) > 5);
+    window.addEventListener("scroll", apply, { passive: true });
+    window.addEventListener("load", apply);
+    apply();
+  }
+})();
