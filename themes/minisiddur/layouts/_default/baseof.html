@@ -40,19 +40,15 @@
     </main>
     
     <nav class="nav-mini" id="navMini">
-      <button class="nav-mini-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Guardar posición">
-        <span id="bookmarkIcon">🔖</span>
-        <span class="nav-mini-btn-label">Guardar</span>
-      </button>
+      <button class="nav-mini-btn" onclick="scrollToTop()" title="Volver arriba">↑</button>
       
       <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
         <span id="currentSectionText">...</span>
         <span class="arrow">▼</span>
       </button>
       
-      <button class="nav-mini-btn" onclick="openSidebar()" title="Ir a sección">
-        <span>☰</span>
-        <span class="nav-mini-btn-label">Secciones</span>
+      <button class="nav-mini-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Guardar posición">
+        <span id="bookmarkIcon">◆</span>
       </button>
     </nav>
     

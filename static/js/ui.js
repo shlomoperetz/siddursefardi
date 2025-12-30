@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-FINAL-V3
+// BUILD_TOKEN: 2025-12-30-FINAL-V4
 
 let fontSize = 21;
 
@@ -11,6 +11,10 @@ function adjustFont(delta) {
 
 function toggleUI() {
   document.body.classList.toggle('ui-hidden');
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleDarkMode() {
@@ -81,7 +85,7 @@ function toggleBookmark() {
   const bookmarkPos = localStorage.getItem('siddur_bookmark_pos');
   
   if (bookmarkPage === currentPage && bookmarkPos) {
-    // Ya hay bookmark en esta página - ir a él
+    // Ya hay bookmark - ir a él
     window.scrollTo({ top: parseInt(bookmarkPos), behavior: 'smooth' });
     showPositionMarker();
   } else {
@@ -91,10 +95,10 @@ function toggleBookmark() {
     localStorage.setItem('siddur_bookmark_pos', scrollPos);
     updateBookmarkButton();
     
-    // Mostrar feedback visual
+    // Feedback visual
     const btn = document.getElementById('bookmarkBtn');
     if (btn) {
-      btn.style.transform = 'scale(1.2)';
+      btn.style.transform = 'scale(1.15)';
       setTimeout(() => {
         btn.style.transform = 'scale(1)';
       }, 200);
@@ -112,17 +116,17 @@ function updateBookmarkButton() {
   
   if (bookmarkPage === currentPage) {
     btn.classList.add('bookmarked');
-    icon.textContent = '📍';
-    btn.title = 'Ir a marcador guardado';
+    icon.textContent = '◆';
+    btn.title = 'Ir a marcador';
   } else {
     btn.classList.remove('bookmarked');
-    icon.textContent = '🔖';
+    icon.textContent = '◇';
     btn.title = 'Guardar posición';
   }
 }
 
 function restorePosition() {
-  const savedPage = localStorage.getItem('siddur_position');
+  const savedPage = localStorage.getItem('siddur_page');
   const savedPos = localStorage.getItem('siddur_position');
   
   if (savedPage === window.location.pathname && savedPos) {
