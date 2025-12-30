@@ -310,3 +310,89 @@ nav.bottom a[aria-current="page"],
 @media(max-width:520px){
   .bottom-nav a{ height:44px; }
 }
+
+/* =========================================================
+   Bottombar (Shacharit / Mincha / Arvit) — FINAL
+   HTML: <nav class="bottombar"><a class="bbtn ... active">...</a>...
+   ========================================================= */
+
+nav.bottombar{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+
+  height: calc(var(--bottom-h) + env(safe-area-inset-bottom));
+  padding: 10px var(--pad) calc(10px + env(safe-area-inset-bottom));
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-items: center;
+
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+
+  /* keep it centered like the text column */
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Buttons */
+nav.bottombar a.bbtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;
+  padding: 0 10px;
+
+  font-family: var(--he-font);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .2px;
+
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  text-decoration: none;
+
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover */
+nav.bottombar a.bbtn:hover{
+  background: #f3f3f3;
+}
+
+/* Active tab */
+nav.bottombar a.bbtn.active{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* Focus (keyboard) */
+nav.bottombar a.bbtn:focus-visible{
+  outline: 3px solid rgba(11,87,208,.35);
+  outline-offset: 2px;
+}
+
+/* Make sure the content never hides behind bottom bar */
+main, .page, .content, article{
+  padding-bottom: calc(var(--bottom-h) + 40px + env(safe-area-inset-bottom));
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  nav.bottombar{
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  nav.bottombar a.bbtn{
+    height: 46px;
+    font-size: 15px;
+  }
+}
