@@ -80,7 +80,7 @@ a:hover{ text-decoration:underline; }
 
 .reading-progress {
   position: fixed;
-  bottom: 166px;
+  bottom: 171px;
   left: 0;
   width: 3px;
   height: calc(100vh - var(--topbar-h) - 158px);
@@ -293,7 +293,7 @@ nav.controls .btn:focus-visible{
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 110px;
+  bottom: 115px;
   z-index: 215;
   
   height: var(--navmini-h);
@@ -477,11 +477,11 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
   }
   
   .nav-mini {
-    bottom: 112px;
+    bottom: 117px;
   }
   
   .reading-progress {
-    bottom: 176px;
+    bottom: 181px;
   }
   
   nav.bottombar a.bbtn{ font-size: 24px; }
