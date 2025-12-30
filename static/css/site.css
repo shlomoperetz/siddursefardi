@@ -1,4 +1,4 @@
-/* BUILD_TOKEN: 2025-12-30-UPDATED
+/* BUILD_TOKEN: 2025-12-30-FINAL-V2
    Siddur Sefardi — BOOK UI (single source of truth)
    Comfortable, minimal, elegant, practical on mobile
 */
@@ -20,7 +20,7 @@
 
   --topbar-h: 84px;
   --bottombar-h: 82px;
-  --navmini-h: 50px;
+  --navmini-h: 56px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,7 +58,7 @@ a:hover{ text-decoration:underline; }
   max-width:var(--maxw);
   margin:0 auto;
   padding: calc(var(--pad) + 18px) var(--pad);
-  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 44px + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 24px + env(safe-area-inset-bottom));
   direction:rtl;
   unicode-bidi:plaintext;
 }
@@ -80,7 +80,7 @@ a:hover{ text-decoration:underline; }
 
 .reading-progress {
   position: fixed;
-  bottom: calc(var(--bottombar-h) + var(--navmini-h));
+  bottom: calc(var(--bottombar-h) + var(--navmini-h) + env(safe-area-inset-bottom));
   left: 0;
   width: 3px;
   height: calc(100vh - var(--topbar-h) - var(--bottombar-h) - var(--navmini-h));
@@ -291,7 +291,7 @@ nav.controls .btn:focus-visible{
   position: fixed;
   left: 0;
   right: 0;
-  bottom: var(--bottombar-h);
+  bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom));
   z-index: 215;
   
   height: var(--navmini-h);
@@ -300,11 +300,13 @@ nav.controls .btn:focus-visible{
   border-top: 1px solid rgba(128,128,128,.12);
   
   padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
+  padding-top: 7px;
+  padding-bottom: 7px;
   box-sizing: border-box;
   
   display: grid;
   grid-template-columns: 60px 1fr 60px;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
   
   opacity: 0;
@@ -334,14 +336,16 @@ nav.controls .btn:focus-visible{
   border: 0;
   background: transparent;
   
-  width: 50px;
+  width: 52px;
   height: 42px;
   
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 2px;
   
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--muted);
   
@@ -353,6 +357,19 @@ nav.controls .btn:focus-visible{
 .nav-mini-btn:hover {
   color: var(--fg);
   background: rgba(128,128,128,.08);
+}
+
+.nav-mini-btn.bookmarked {
+  color: #d4af37;
+}
+
+.nav-mini-btn-label {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.8;
+  font-family: var(--ui-font);
 }
 
 .nav-mini-section {
@@ -465,13 +482,22 @@ body.ui-hidden .nav-mini{ transform: translateY(200%); }
     --font: 20px;
     --topbar-h: 88px;
     --bottombar-h: 84px;
-    --navmini-h: 48px;
+    --navmini-h: 54px;
   }
   nav.bottombar a.bbtn{ font-size: 24px; }
   
   .nav-mini-section {
     font-size: 14px;
     padding: 0 12px;
+  }
+  
+  .nav-mini-btn {
+    width: 50px;
+    font-size: 18px;
+  }
+  
+  .nav-mini-btn-label {
+    font-size: 8px;
   }
   
   .sidebar {

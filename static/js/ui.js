@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-FINAL
+// BUILD_TOKEN: 2025-12-30-FINAL-V3
 
 let fontSize = 21;
 
@@ -11,10 +11,6 @@ function adjustFont(delta) {
 
 function toggleUI() {
   document.body.classList.toggle('ui-hidden');
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleDarkMode() {
@@ -68,6 +64,7 @@ window.addEventListener('load', () => {
   }
   
   initNavigation();
+  updateBookmarkButton();
 });
 
 let positionMarker = null;
@@ -78,8 +75,54 @@ function savePosition() {
   localStorage.setItem('siddur_page', window.location.pathname);
 }
 
+function toggleBookmark() {
+  const currentPage = window.location.pathname;
+  const bookmarkPage = localStorage.getItem('siddur_bookmark_page');
+  const bookmarkPos = localStorage.getItem('siddur_bookmark_pos');
+  
+  if (bookmarkPage === currentPage && bookmarkPos) {
+    // Ya hay bookmark en esta página - ir a él
+    window.scrollTo({ top: parseInt(bookmarkPos), behavior: 'smooth' });
+    showPositionMarker();
+  } else {
+    // Guardar nuevo bookmark
+    const scrollPos = window.pageYOffset;
+    localStorage.setItem('siddur_bookmark_page', currentPage);
+    localStorage.setItem('siddur_bookmark_pos', scrollPos);
+    updateBookmarkButton();
+    
+    // Mostrar feedback visual
+    const btn = document.getElementById('bookmarkBtn');
+    if (btn) {
+      btn.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        btn.style.transform = 'scale(1)';
+      }, 200);
+    }
+  }
+}
+
+function updateBookmarkButton() {
+  const currentPage = window.location.pathname;
+  const bookmarkPage = localStorage.getItem('siddur_bookmark_page');
+  const btn = document.getElementById('bookmarkBtn');
+  const icon = document.getElementById('bookmarkIcon');
+  
+  if (!btn || !icon) return;
+  
+  if (bookmarkPage === currentPage) {
+    btn.classList.add('bookmarked');
+    icon.textContent = '📍';
+    btn.title = 'Ir a marcador guardado';
+  } else {
+    btn.classList.remove('bookmarked');
+    icon.textContent = '🔖';
+    btn.title = 'Guardar posición';
+  }
+}
+
 function restorePosition() {
-  const savedPage = localStorage.getItem('siddur_page');
+  const savedPage = localStorage.getItem('siddur_position');
   const savedPos = localStorage.getItem('siddur_position');
   
   if (savedPage === window.location.pathname && savedPos) {
@@ -128,8 +171,6 @@ window.addEventListener('scroll', () => {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(savePosition, 2000);
 });
-
-window.addEventListener('load', restorePosition);
 
 window.addEventListener('scroll', () => {
   const winScroll = document.body.scrollTop || document.documentElement.scrollTop;

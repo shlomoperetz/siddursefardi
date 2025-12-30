@@ -25,14 +25,12 @@
       </div>
     </header>
     
-    <!-- Sidebar de navegación (móvil) -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h3>ניווט מהיר</h3>
         <button class="sidebar-close" onclick="closeSidebar()">×</button>
       </div>
       <nav class="sidebar-nav" id="sidebarNav">
-        <!-- Se genera dinámicamente -->
       </nav>
     </aside>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -41,16 +39,21 @@
       {{ block "main" . }}{{ end }}
     </main>
     
-    <!-- Mini barra de navegación interna -->
     <nav class="nav-mini" id="navMini">
-      <button class="nav-mini-btn" onclick="scrollToTop()" title="Volver arriba">↑</button>
+      <button class="nav-mini-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Guardar posición">
+        <span id="bookmarkIcon">🔖</span>
+        <span class="nav-mini-btn-label">Guardar</span>
+      </button>
       
       <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
         <span id="currentSectionText">...</span>
         <span class="arrow">▼</span>
       </button>
       
-      <button class="nav-mini-btn" onclick="openSidebar()" title="Ir a sección">☰</button>
+      <button class="nav-mini-btn" onclick="openSidebar()" title="Ir a sección">
+        <span>☰</span>
+        <span class="nav-mini-btn-label">Secciones</span>
+      </button>
     </nav>
     
     <nav class="bottombar" aria-label="Siddur navigation">
