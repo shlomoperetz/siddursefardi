@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-UPDATED
+// BUILD_TOKEN: 2025-12-30-FINAL
 
 let fontSize = 21;
 
@@ -17,7 +17,6 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Toggle modo oscuro con 3 estados: auto → dark → light → auto
 function toggleDarkMode() {
   const root = document.documentElement;
   const topbar = document.querySelector('header.topbar');
@@ -46,7 +45,6 @@ function toggleDarkMode() {
   }
 }
 
-// Restaurar preferencias guardadas
 window.addEventListener('load', () => {
   const savedTheme = localStorage.getItem('theme');
   const savedFontSize = localStorage.getItem('siddur_fontSize');
@@ -68,9 +66,10 @@ window.addEventListener('load', () => {
     fontSize = parseInt(savedFontSize);
     root.style.setProperty('--font', fontSize + 'px');
   }
+  
+  initNavigation();
 });
 
-// ========== MARCADOR DE POSICIÓN ==========
 let positionMarker = null;
 
 function savePosition() {
@@ -132,7 +131,6 @@ window.addEventListener('scroll', () => {
 
 window.addEventListener('load', restorePosition);
 
-// ========== BARRA DE PROGRESO VERTICAL ==========
 window.addEventListener('scroll', () => {
   const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -145,7 +143,6 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// ========== AUTO-HIDE UI AL SCROLLEAR ==========
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
@@ -155,19 +152,16 @@ window.addEventListener('scroll', () => {
     document.body.classList.remove('ui-hidden');
   }
   lastScroll = currentScroll;
+  
+  updateCurrentSection();
 });
 
-// ========== SIDEBAR DE NAVEGACIÓN ==========
 function openSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
   
   sidebar.classList.add('open');
   overlay.classList.add('visible');
-  
-  if (!document.querySelector('.sidebar-nav a')) {
-    generateSidebarNav();
-  }
 }
 
 function closeSidebar() {
@@ -178,9 +172,16 @@ function closeSidebar() {
   overlay.classList.remove('visible');
 }
 
-function generateSidebarNav() {
+function toggleSectionMenu() {
+  openSidebar();
+}
+
+function initNavigation() {
   const h2Elements = document.querySelectorAll('.page h2');
   const sidebarNav = document.getElementById('sidebarNav');
+  const navMini = document.getElementById('navMini');
+  
+  if (!h2Elements.length) return;
   
   h2Elements.forEach((h2, index) => {
     const id = `section-${index}`;
@@ -195,24 +196,25 @@ function generateSidebarNav() {
       closeSidebar();
     };
     
-    sidebarNav.appendChild(link);
+    if (sidebarNav) {
+      sidebarNav.appendChild(link);
+    }
   });
+  
+  if (navMini && h2Elements.length > 0) {
+    navMini.classList.add('visible');
+  }
+  
+  updateCurrentSection();
+  restorePosition();
 }
-
-// ========== MINI BARRA DE NAVEGACIÓN ==========
-let sectionCheckInterval;
-window.addEventListener('scroll', () => {
-  clearTimeout(sectionCheckInterval);
-  sectionCheckInterval = setTimeout(updateCurrentSection, 100);
-});
 
 function updateCurrentSection() {
   const h2Elements = document.querySelectorAll('.page h2');
   const currentSectionText = document.getElementById('currentSectionText');
-  const navMini = document.getElementById('navMini');
   const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
   
-  if (!currentSectionText || !navMini) return;
+  if (!currentSectionText || !h2Elements.length) return;
   
   let currentSection = '';
   let activeIndex = -1;
@@ -224,11 +226,6 @@ function updateCurrentSection() {
       activeIndex = index;
     }
   });
-  
-  // Mostrar mini barra si hay h2 en la página
-  if (h2Elements.length > 0) {
-    navMini.classList.add('visible');
-  }
   
   if (currentSection) {
     currentSectionText.textContent = currentSection;
@@ -244,13 +241,3 @@ function updateCurrentSection() {
     }
   });
 }
-
-function toggleSectionMenu() {
-  openSidebar();
-}
-
-// Inicializar al cargar
-window.addEventListener('load', () => {
-  updateCurrentSection();
-  generateSidebarNav();
-});
