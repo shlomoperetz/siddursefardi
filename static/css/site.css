@@ -496,3 +496,10 @@ body.ui-hidden .nav-mini{
     padding: 11px 13px;
   }
 }
+
+/* Fix: Nav-mini visible al cargar (en el inicio) */
+.nav-mini {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
