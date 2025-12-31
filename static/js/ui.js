@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-31-DOUBLE-CLICK-BOOKMARK
+// BUILD_TOKEN: 2025-12-31-RESPONSIVE-UI
 
 let fontSize = 21;
 
@@ -265,7 +265,7 @@ window.addEventListener('scroll', () => {
   
   if (currentScroll > lastScroll && currentScroll > 200) {
     document.body.classList.add('ui-hidden');
-  } else if (currentScroll < lastScroll - 50) {
+  } else if (currentScroll < lastScroll - 10) {
     document.body.classList.remove('ui-hidden');
   }
   
