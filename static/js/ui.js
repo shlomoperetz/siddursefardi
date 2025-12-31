@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features  
-// BUILD_TOKEN: 2025-12-31-WORKING-VERSION
+// BUILD_TOKEN: 2026-01-01-PRAYER-BLOCKS
 
 let fontSize = 21;
 
@@ -242,30 +242,46 @@ window.addEventListener('scroll', () => {
 
 let lastScroll = 0;
 let navMiniVisible = false;
+const TOP_THRESHOLD = 100;
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
   const navMini = document.querySelector('.nav-mini');
+  const topbar = document.querySelector('header.topbar');
+  const bottombar = document.querySelector('nav.bottombar');
   
-  if (!navMini) return;
+  const isAtTop = currentScroll < TOP_THRESHOLD;
+  const scrollingUp = currentScroll < lastScroll;
+  const scrollingDown = currentScroll > lastScroll;
   
-  if (currentScroll < lastScroll && currentScroll > 100) {
-    if (!navMiniVisible) {
-      navMini.classList.add('visible');
-      navMiniVisible = true;
+  if (navMini) {
+    if (scrollingUp && currentScroll > TOP_THRESHOLD) {
+      if (!navMiniVisible) {
+        navMini.classList.add('visible');
+        navMiniVisible = true;
+      }
+    } else if (scrollingDown || isAtTop) {
+      if (navMiniVisible) {
+        navMini.classList.remove('visible');
+        navMiniVisible = false;
+      }
     }
   }
-  else if (currentScroll > lastScroll && currentScroll > 100) {
-    if (navMiniVisible) {
-      navMini.classList.remove('visible');
-      navMiniVisible = false;
+  
+  if (topbar) {
+    if (currentScroll > 200) {
+      topbar.style.transform = 'translateY(-130%)';
+    } else {
+      topbar.style.transform = 'translateY(0)';
     }
   }
   
-  if (currentScroll > lastScroll && currentScroll > 200) {
-    document.body.classList.add('ui-hidden');
-  } else if (currentScroll < lastScroll - 10) {
-    document.body.classList.remove('ui-hidden');
+  if (bottombar) {
+    if (isAtTop) {
+      bottombar.style.transform = 'translateY(0)';
+    } else {
+      bottombar.style.transform = 'translateY(130%)';
+    }
   }
   
   lastScroll = currentScroll;
@@ -296,22 +312,27 @@ function toggleSectionMenu() {
   openSidebar();
 }
 
+// ========== NAVEGACIÓN ADAPTADA A PRAYER-BLOCKS ==========
 function initNavigation() {
-  const h2Elements = document.querySelectorAll('.page h2');
+  // Buscar títulos dentro de prayer-blocks
+  const prayerTitles = document.querySelectorAll('.prayer-title');
   const sidebarNav = document.getElementById('sidebarNav');
   
-  if (!h2Elements.length) return;
+  if (!prayerTitles.length) return;
   
-  h2Elements.forEach((h2, index) => {
-    const id = `section-${index}`;
-    h2.id = id;
+  prayerTitles.forEach((title, index) => {
+    const prayerBlock = title.closest('.prayer-block');
+    if (!prayerBlock) return;
+    
+    const id = `prayer-block-${index}`;
+    prayerBlock.id = id;
     
     const link = document.createElement('a');
     link.href = `#${id}`;
-    link.textContent = h2.textContent;
+    link.textContent = title.textContent;
     link.onclick = (e) => {
       e.preventDefault();
-      h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      prayerBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
       closeSidebar();
     };
     
@@ -325,27 +346,33 @@ function initNavigation() {
 }
 
 function updateCurrentSection() {
-  const h2Elements = document.querySelectorAll('.page h2');
+  const prayerBlocks = document.querySelectorAll('.prayer-block');
   const currentSectionText = document.getElementById('currentSectionText');
   const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
   
-  if (!currentSectionText || !h2Elements.length) return;
+  if (!currentSectionText || !prayerBlocks.length) return;
   
   let currentSection = '';
   let activeIndex = -1;
   
-  h2Elements.forEach((h2, index) => {
-    const rect = h2.getBoundingClientRect();
-    if (rect.top < window.innerHeight / 3 && rect.top > -200) {
-      currentSection = h2.textContent;
-      activeIndex = index;
+  prayerBlocks.forEach((block, index) => {
+    const rect = block.getBoundingClientRect();
+    if (rect.top < window.innerHeight / 3 && rect.bottom > 0) {
+      const title = block.querySelector('.prayer-title');
+      if (title) {
+        currentSection = title.textContent;
+        activeIndex = index;
+      }
     }
   });
   
   if (currentSection) {
     currentSectionText.textContent = currentSection;
-  } else if (h2Elements.length > 0) {
-    currentSectionText.textContent = h2Elements[0].textContent;
+  } else if (prayerBlocks.length > 0) {
+    const firstTitle = prayerBlocks[0].querySelector('.prayer-title');
+    if (firstTitle) {
+      currentSectionText.textContent = firstTitle.textContent;
+    }
   }
   
   sidebarLinks.forEach((link, index) => {
