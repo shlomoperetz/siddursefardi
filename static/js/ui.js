@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features
-// BUILD_TOKEN: 2025-12-30-FINAL-SCROLL-FIX
+// BUILD_TOKEN: 2025-12-31-DOUBLE-CLICK-BOOKMARK
 
 let fontSize = 21;
 
@@ -69,9 +69,6 @@ window.addEventListener('load', () => {
   
   initNavigation();
   updateBookmarkButton();
-  
-  // NO hacer visible la nav-mini al cargar
-  // Se mostrará solo cuando el usuario scrollee hacia arriba
 });
 
 let positionMarker = null;
@@ -82,14 +79,64 @@ function savePosition() {
   localStorage.setItem('siddur_page', window.location.pathname);
 }
 
+// ========== SISTEMA DE BOOKMARK CON DOBLE CLICK ==========
+let lastClickTime = 0;
+const DOUBLE_CLICK_DELAY = 400;
+
 function toggleBookmark() {
   const currentPage = window.location.pathname;
   const bookmarkPage = localStorage.getItem('siddur_bookmark_page');
   const bookmarkPos = localStorage.getItem('siddur_bookmark_pos');
+  const now = Date.now();
+  const timeSinceLastClick = now - lastClickTime;
   
   if (bookmarkPage === currentPage && bookmarkPos) {
-    window.scrollTo({ top: parseInt(bookmarkPos), behavior: 'smooth' });
-    showPositionMarker();
+    if (timeSinceLastClick < DOUBLE_CLICK_DELAY) {
+      localStorage.removeItem('siddur_bookmark_page');
+      localStorage.removeItem('siddur_bookmark_pos');
+      updateBookmarkButton();
+      
+      const btn = document.getElementById('bookmarkBtn');
+      if (btn) {
+        btn.style.transform = 'rotate(180deg) scale(0.8)';
+        setTimeout(() => {
+          btn.style.transform = 'scale(1)';
+        }, 300);
+      }
+    } else {
+      window.scrollTo({ top: parseInt(bookmarkPos), behavior: 'smooth' });
+      showPositionMarker();
+      
+      const btn = document.getElementById('bookmarkBtn');
+      if (btn) {
+        btn.style.transform = 'scale(1.15)';
+        setTimeout(() => {
+          btn.style.transform = 'scale(1)';
+        }, 200);
+      }
+    }
+  } else if (bookmarkPage && bookmarkPage !== currentPage) {
+    const pageNames = {
+      '/weekday/arvit/': 'עַרְבִית',
+      '/weekday/shacharit/': 'שַׁחֲרִית',
+      '/weekday/mincha/': 'מִנְחָה'
+    };
+    const oldPageName = pageNames[bookmarkPage] || 'otra página';
+    
+    if (confirm(`¿Mover marcador desde ${oldPageName} a esta página?`)) {
+      const scrollPos = window.pageYOffset;
+      localStorage.setItem('siddur_bookmark_page', currentPage);
+      localStorage.setItem('siddur_bookmark_pos', scrollPos);
+      updateBookmarkButton();
+      
+      const btn = document.getElementById('bookmarkBtn');
+      if (btn) {
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          btn.style.transform = 'scale(1)';
+        }, 200);
+      }
+    }
   } else {
     const scrollPos = window.pageYOffset;
     localStorage.setItem('siddur_bookmark_page', currentPage);
@@ -98,12 +145,14 @@ function toggleBookmark() {
     
     const btn = document.getElementById('bookmarkBtn');
     if (btn) {
-      btn.style.transform = 'scale(1.15)';
+      btn.style.transform = 'scale(1.2)';
       setTimeout(() => {
         btn.style.transform = 'scale(1)';
       }, 200);
     }
   }
+  
+  lastClickTime = now;
 }
 
 function updateBookmarkButton() {
@@ -117,11 +166,15 @@ function updateBookmarkButton() {
   if (bookmarkPage === currentPage) {
     btn.classList.add('bookmarked');
     icon.textContent = '◆';
-    btn.title = 'Ir a marcador';
+    btn.title = 'Click: ir al marcador • Doble click: eliminar';
+  } else if (bookmarkPage) {
+    btn.classList.remove('bookmarked');
+    icon.textContent = '◇';
+    btn.title = 'Click: mover marcador aquí';
   } else {
     btn.classList.remove('bookmarked');
     icon.textContent = '◇';
-    btn.title = 'Guardar posición';
+    btn.title = 'Click: guardar posición';
   }
 }
 
@@ -188,7 +241,6 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// ========== SCROLL INTELIGENTE: nav-mini solo aparece al scrollear ARRIBA ==========
 let lastScroll = 0;
 let navMiniVisible = false;
 
@@ -198,14 +250,12 @@ window.addEventListener('scroll', () => {
   
   if (!navMini) return;
   
-  // Scrolleando hacia ARRIBA (leyendo hacia atrás)
   if (currentScroll < lastScroll && currentScroll > 100) {
     if (!navMiniVisible) {
       navMini.classList.add('visible');
       navMiniVisible = true;
     }
   }
-  // Scrolleando hacia ABAJO (leyendo normal) - ocultar nav-mini
   else if (currentScroll > lastScroll && currentScroll > 100) {
     if (navMiniVisible) {
       navMini.classList.remove('visible');
@@ -213,7 +263,6 @@ window.addEventListener('scroll', () => {
     }
   }
   
-  // Auto-hide topbar y bottombar
   if (currentScroll > lastScroll && currentScroll > 200) {
     document.body.classList.add('ui-hidden');
   } else if (currentScroll < lastScroll - 50) {
