@@ -8,3 +8,8 @@ enableRedirects = true
   defaultLocationName = "Jerusalem"
   defaultLat = 31.778
   defaultLon = 35.235
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
