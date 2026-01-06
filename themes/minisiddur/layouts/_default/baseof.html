@@ -34,6 +34,7 @@
     </aside>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
     
+{{- partial "beta-banner.html" . -}}
     <main class="page">
       {{ block "main" . }}{{ end }}
     </main>
