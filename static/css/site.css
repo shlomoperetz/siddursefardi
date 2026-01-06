@@ -1,5 +1,5 @@
-/* BUILD_TOKEN: 2025-12-30-FINAL-COMPLETE
-   Siddur Sefardi — nav-mini oculta por defecto
+/* BUILD_TOKEN: 2026-01-06-NAVMINI-DYNAMIC
+   Siddur Sefardi — nav-mini dinámico
 */
 
 :root{
@@ -53,7 +53,7 @@ a:hover{ text-decoration:underline; }
   max-width:var(--maxw);
   margin:0 auto;
   padding: calc(var(--pad) + 18px) var(--pad);
-  padding-bottom: calc(var(--bottombar-h) + 40px + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 40px + env(safe-area-inset-bottom));
   direction:rtl;
   unicode-bidi:plaintext;
 }
@@ -281,11 +281,12 @@ nav.controls .btn:focus-visible{
   pointer-events: auto;
 }
 
+/* NAV-MINI: Posición dinámica controlada por JS */
 .nav-mini {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 82px;
+  bottom: var(--bottombar-h);
   z-index: 215;
   height: var(--navmini-h);
   background: rgba(255,255,255,1);
@@ -293,22 +294,26 @@ nav.controls .btn:focus-visible{
   border-top: 1px solid rgba(128,128,128,.12);
   padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
   padding-top: 2px;
-  padding-bottom: 25px;
+  padding-bottom: 0;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 56px 1fr 56px;
   gap: 10px;
   align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(200%);
-  transition: all .4s ease;
+  transition: opacity .3s ease, transform .3s ease, bottom .3s ease;
 }
 
-.nav-mini.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
+/* Estado: oculto (scroll down) */
+.nav-mini.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+}
+
+/* Estado: solo (sin bottombar, pegado al fondo) */
+.nav-mini.solo {
+  bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -397,6 +402,11 @@ nav.bottombar{
   grid-auto-columns: 1fr;
   gap: 0;
   align-items: center;
+  transition: transform .3s ease;
+}
+
+nav.bottombar.hidden {
+  transform: translateY(100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -438,19 +448,9 @@ nav.bottombar a.bbtn.active::before{
   opacity: .9;
 }
 
-header.topbar, nav.bottombar, .nav-mini{ transition: transform .18s ease; }
+header.topbar{ transition: transform .18s ease; }
 html.ui-hidden header.topbar,
 body.ui-hidden header.topbar{ transform: translateY(-130%); }
-
-html.ui-hidden nav.bottombar,
-body.ui-hidden nav.bottombar{ transform: translateY(130%); }
-
-html.ui-hidden .nav-mini,
-body.ui-hidden .nav-mini{ 
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(200%);
-}
 
 @media (max-width:520px){
   :root{
@@ -461,15 +461,8 @@ body.ui-hidden .nav-mini{
     --navmini-h: 60px;
   }
   
-  .nav-mini {
-    bottom: 84px;
-    height: 60px;
-    padding-top: 4px;
-    padding-bottom: 30px;
-  }
-  
   .page {
-    padding-bottom: calc(var(--bottombar-h) + 30px + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 30px + env(safe-area-inset-bottom));
   }
   
   nav.bottombar a.bbtn{ font-size: 24px; }
@@ -495,16 +488,6 @@ body.ui-hidden .nav-mini{
     font-size: 16px;
     padding: 11px 13px;
   }
-}
-
-/* Fix: Nav-mini visible al cargar (en el inicio) */
-.nav-mini {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-  border-top-color: rgba(255,255,255,0.06);
 }
 
 /* ========== BLOQUES DE REZO (ESTILO EDITORIAL) ========== */

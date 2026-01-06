@@ -1,5 +1,5 @@
 // Siddur Sefardi - Interactive Features  
-// BUILD_TOKEN: 2026-01-01-PRAYER-BLOCKS
+// BUILD_TOKEN: 2026-01-06-NAVMINI-DYNAMIC
 
 let fontSize = 21;
 
@@ -240,8 +240,8 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// ========== LÓGICA PRINCIPAL DE NAVEGACIÓN ==========
 let lastScroll = 0;
-let navMiniVisible = false;
 const TOP_THRESHOLD = 100;
 
 window.addEventListener('scroll', () => {
@@ -254,20 +254,7 @@ window.addEventListener('scroll', () => {
   const scrollingUp = currentScroll < lastScroll;
   const scrollingDown = currentScroll > lastScroll;
   
-  if (navMini) {
-    if (scrollingUp && currentScroll > TOP_THRESHOLD) {
-      if (!navMiniVisible) {
-        navMini.classList.add('visible');
-        navMiniVisible = true;
-      }
-    } else if (scrollingDown || isAtTop) {
-      if (navMiniVisible) {
-        navMini.classList.remove('visible');
-        navMiniVisible = false;
-      }
-    }
-  }
-  
+  // Topbar: ocultar después de 200px
   if (topbar) {
     if (currentScroll > 200) {
       topbar.style.transform = 'translateY(-130%)';
@@ -276,11 +263,24 @@ window.addEventListener('scroll', () => {
     }
   }
   
-  if (bottombar) {
-    if (isAtTop) {
-      bottombar.style.transform = 'translateY(0)';
-    } else {
-      bottombar.style.transform = 'translateY(130%)';
+  // Lógica de bottombar y nav-mini
+  if (isAtTop) {
+    // EN EL INICIO: ambos visibles, nav-mini encima de bottombar
+    if (bottombar) bottombar.classList.remove('hidden');
+    if (navMini) {
+      navMini.classList.remove('hidden');
+      navMini.classList.remove('solo');
+    }
+  } else if (scrollingDown) {
+    // SCROLL ABAJO: ambos ocultos
+    if (bottombar) bottombar.classList.add('hidden');
+    if (navMini) navMini.classList.add('hidden');
+  } else if (scrollingUp) {
+    // SCROLL ARRIBA (no en inicio): solo nav-mini, pegado al fondo
+    if (bottombar) bottombar.classList.add('hidden');
+    if (navMini) {
+      navMini.classList.remove('hidden');
+      navMini.classList.add('solo');
     }
   }
   
@@ -314,7 +314,6 @@ function toggleSectionMenu() {
 
 // ========== NAVEGACIÓN ADAPTADA A PRAYER-BLOCKS ==========
 function initNavigation() {
-  // Buscar títulos dentro de prayer-blocks
   const prayerTitles = document.querySelectorAll('.prayer-title');
   const sidebarNav = document.getElementById('sidebarNav');
   
