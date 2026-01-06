@@ -548,3 +548,29 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 .prayer-block.dark-mode + .prayer-block.dark-mode {
   border-top-color: rgba(255,255,255,0.06);
 }
+
+/* ========== SIDEBAR SECCIONES ADICIONALES ========== */
+.sidebar-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(128,128,128,.12);
+}
+
+.sidebar-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 0.7;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.03em;
+}
+
+.sidebar-nav-extra a {
+  font-size: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sidebar-section {
+    border-top-color: rgba(255,255,255,.08);
+  }
+}
