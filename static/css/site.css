@@ -666,3 +666,72 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   color: #d4af37;
 }
 
+
+/* Fix minyan toggle */
+.minyan-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  padding-left: 12px;
+  border-left: 1px solid rgba(128,128,128,0.15);
+}
+
+.minyan-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.35;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border-radius: 6px;
+}
+
+.minyan-btn.active {
+  opacity: 1;
+  background: rgba(212,175,55,0.1);
+}
+
+.minyan-btn:hover {
+  opacity: 0.7;
+}
+
+/* Fix urgency button */
+.nav-mini-urgency {
+  color: #c49a2e;
+  font-size: 18px;
+}
+
+/* Dark mode fixes */
+.dark-mode .bottombar,
+.dark-mode .nav-mini {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.dark-mode .minyan-toggle {
+  border-left-color: rgba(255,255,255,0.1);
+}
+
+.dark-mode .bbtn {
+  color: rgba(255,255,255,0.7);
+}
+
+.dark-mode .bbtn.active {
+  color: #d4af37;
+}
+
+.dark-mode .minyan-btn {
+  opacity: 0.4;
+}
+
+.dark-mode .minyan-btn.active {
+  opacity: 1;
+  background: rgba(212,175,55,0.15);
+}
