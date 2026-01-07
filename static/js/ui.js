@@ -5,7 +5,7 @@ let fontSize = 21;
 let isAtTop = true;
 
 function adjustFont(delta) {
-  fontSize = Math.max(16, Math.min(32, fontSize + delta));
+  fontSize = Math.max(16, Math.min(42, fontSize + delta));
   document.documentElement.style.setProperty('--font', fontSize + 'px');
   localStorage.setItem('siddur_fontSize', fontSize);
 }
