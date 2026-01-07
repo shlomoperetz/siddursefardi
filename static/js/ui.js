@@ -1,7 +1,8 @@
 // Siddur Sefardi - Interactive Features  
-// BUILD_TOKEN: 2026-01-06-FIX
+// BUILD_TOKEN: 2026-01-07-LEFTBTN
 
 let fontSize = 21;
+let isAtTop = true;
 
 function adjustFont(delta) {
   fontSize = Math.max(16, Math.min(32, fontSize + delta));
@@ -15,6 +16,28 @@ function toggleUI() {
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleLeftBtn() {
+  if (isAtTop) {
+    window.location.href = '/extra/birkat-hamazon/';
+  } else {
+    scrollToTop();
+  }
+}
+
+function updateLeftBtn() {
+  const btn = document.getElementById('leftBtn');
+  const icon = document.getElementById('leftBtnIcon');
+  if (!btn || !icon) return;
+  
+  if (isAtTop) {
+    icon.textContent = '🍞';
+    btn.title = 'בִּרְכַּת הַמָּזוֹן';
+  } else {
+    icon.textContent = '↑';
+    btn.title = 'חזרה למעלה';
+  }
 }
 
 function toggleDarkMode() {
@@ -69,6 +92,7 @@ window.addEventListener('load', () => {
   
   initNavigation();
   updateBookmarkButton();
+  updateLeftBtn();
 });
 
 let positionMarker = null;
@@ -229,9 +253,14 @@ window.addEventListener('scroll', () => {
   const topbar = document.querySelector('header.topbar');
   const bottombar = document.querySelector('nav.bottombar');
   
-  const isAtTop = currentScroll < TOP_THRESHOLD;
+  const wasAtTop = isAtTop;
+  isAtTop = currentScroll < TOP_THRESHOLD;
   const scrollingUp = currentScroll < lastScroll;
   const scrollingDown = currentScroll > lastScroll;
+  
+  if (wasAtTop !== isAtTop) {
+    updateLeftBtn();
+  }
   
   if (topbar) {
     if (currentScroll > 200) {

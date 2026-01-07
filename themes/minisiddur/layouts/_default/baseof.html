@@ -30,11 +30,9 @@
         <button class="sidebar-close" onclick="closeSidebar()">×</button>
       </div>
       
-      <!-- Sección dinámica de la página actual -->
       <nav class="sidebar-nav" id="sidebarNav">
       </nav>
       
-      <!-- Oraciones adicionales (fijas) -->
       <div class="sidebar-section">
         <h4 class="sidebar-section-title">תפילות נוספות</h4>
         <nav class="sidebar-nav sidebar-nav-extra">
@@ -51,8 +49,8 @@
     </main>
     
     <nav class="nav-mini" id="navMini">
-      <button class="nav-mini-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Guardar posición">
-        <span id="bookmarkIcon">◆</span>
+      <button class="nav-mini-btn" id="leftBtn" onclick="handleLeftBtn()" title="בִּרְכַּת הַמָּזוֹן">
+        <span id="leftBtnIcon">🍞</span>
       </button>
       
       <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
@@ -60,7 +58,9 @@
         <span class="arrow">▼</span>
       </button>
       
-      <button class="nav-mini-btn" onclick="scrollToTop()" title="Volver arriba">↑</button>
+      <button class="nav-mini-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Guardar posición">
+        <span id="bookmarkIcon">◇</span>
+      </button>
     </nav>
     
     <nav class="bottombar" aria-label="Siddur navigation">
@@ -69,6 +69,6 @@
       <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
     </nav>
     
-    <script src="/js/ui.js" defer></script>
+    <script src="/js/ui.js?v={{ now.Unix }}" defer></script>
   </body>
 </html>
