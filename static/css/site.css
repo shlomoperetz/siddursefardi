@@ -631,3 +631,37 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   align-items: center !important;
   justify-content: center !important;
 }
+
+/* Minyan toggle en bottombar */
+.minyan-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(128,128,128,0.2);
+}
+
+.minyan-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: 18px;
+  padding: 8px;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.minyan-btn.active {
+  opacity: 1;
+}
+
+.minyan-btn:hover {
+  opacity: 0.8;
+}
+
+/* Botón urgencia en nav-mini */
+.nav-mini-urgency {
+  color: #d4af37;
+}
