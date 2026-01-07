@@ -735,3 +735,32 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   opacity: 1;
   background: rgba(212,175,55,0.15);
 }
+
+/* Dark mode topbar */
+.dark-mode .topbar {
+  background: #1a1a1a;
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.dark-mode .topbar .title {
+  color: rgba(255,255,255,0.9);
+}
+
+.dark-mode .topbar .byline a {
+  color: rgba(255,255,255,0.5);
+}
+
+.dark-mode .topbar .btn {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Ajustar posición minyan toggle para simetría */
+.minyan-toggle {
+  margin-right: 8px;
+}
+
+/* Ajustar espaciado bottombar */
+.bottombar {
+  padding-left: 12px;
+  padding-right: 12px;
+}
