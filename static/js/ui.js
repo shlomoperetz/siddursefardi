@@ -32,7 +32,7 @@ function updateLeftBtn() {
   if (!btn || !icon) return;
   
   if (isAtTop) {
-    icon.textContent = '🍞';
+    icon.textContent = 'בהמ״ז';
     btn.title = 'בִּרְכַּת הַמָּזוֹן';
   } else {
     icon.textContent = '↑';
