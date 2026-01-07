@@ -49,6 +49,10 @@
     </main>
     
     <nav class="nav-mini" id="navMini">
+      <button class="nav-mini-btn nav-mini-urgency" id="urgencyBtn" onclick="goToUrgency()" title="תפילה מינימלית">
+        <span>⏱</span>
+      </button>
+      
       <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
         <span id="currentSectionText">...</span>
         <span class="arrow">▼</span>
@@ -57,20 +61,16 @@
       <button class="nav-mini-btn" id="leftBtn" onclick="goToBirkat()" title="בִּרְכַּת הַמָּזוֹן">
         <span id="leftBtnIcon">בהמ״ז</span>
       </button>
-      
-      <button class="nav-mini-btn nav-mini-urgency" id="urgencyBtn" onclick="goToUrgency()" title="תפילה מינימלית">
-        <span>⏱</span>
-      </button>
     </nav>
     
     <nav class="bottombar" aria-label="Siddur navigation">
-      <div class="minyan-toggle">
-        <button class="minyan-btn" id="yachidBtn" onclick="setMinyanMode('yachid')" title="יחיד">👤</button>
-        <button class="minyan-btn active" id="minyanBtn" onclick="setMinyanMode('minyan')" title="מניין">👥</button>
-      </div>
       <a class="bbtn {{ if in .RelPermalink "/weekday/shacharit" }}active{{ end }}" href="/weekday/shacharit/">שַׁחֲרִית</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/mincha" }}active{{ end }}" href="/weekday/mincha/">מִנְחָה</a>
       <a class="bbtn {{ if in .RelPermalink "/weekday/arvit" }}active{{ end }}" href="/weekday/arvit/">עַרְבִית</a>
+      <div class="minyan-toggle">
+        <button class="minyan-btn" id="minyanBtn" onclick="setMinyanMode('minyan')" title="מניין">👥</button>
+        <button class="minyan-btn active" id="yachidBtn" onclick="setMinyanMode('yachid')" title="יחיד">👤</button>
+      </div>
     </nav>
     
     <script src="/js/ui.js?v={{ now.Unix }}" defer></script>

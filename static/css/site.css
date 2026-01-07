@@ -666,11 +666,3 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   color: #d4af37;
 }
 
-/* Forzar orden en RTL */
-.nav-mini {
-  flex-direction: row-reverse;
-}
-
-.bottombar {
-  flex-direction: row-reverse;
-}
