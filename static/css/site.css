@@ -574,3 +574,10 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
     border-top-color: rgba(255,255,255,.08);
   }
 }
+
+/* Botón izquierdo con texto hebreo */
+#leftBtn {
+  font-size: 14px;
+  font-family: var(--he-font);
+  font-weight: 600;
+}
