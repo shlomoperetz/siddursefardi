@@ -126,3 +126,57 @@ window.addEventListener('load', function() {
   setMinyanMode(mode);
   initNavigation();
 });
+
+let lastScroll = 0;
+const SCROLL_THRESHOLD = 100;
+
+window.addEventListener('scroll', function() {
+  const currentScroll = window.pageYOffset;
+  const navMini = document.querySelector('.nav-mini');
+  const bottombar = document.querySelector('.bottombar');
+  const leftBtn = document.getElementById('leftBtn');
+  const leftBtnIcon = document.getElementById('leftBtnIcon');
+  
+  // Actualizar botón izquierdo: בהמ״ז al inicio, ↑ al hacer scroll
+  if (currentScroll > SCROLL_THRESHOLD) {
+    if (leftBtnIcon) leftBtnIcon.textContent = '↑';
+    if (leftBtn) {
+      leftBtn.onclick = function() { window.scrollTo({top: 0, behavior: 'smooth'}); };
+      leftBtn.title = 'חזרה למעלה';
+    }
+  } else {
+    if (leftBtnIcon) leftBtnIcon.textContent = 'בהמ״ז';
+    if (leftBtn) {
+      leftBtn.onclick = goToBirkat;
+      leftBtn.title = 'בִּרְכַּת הַמָּזוֹן';
+    }
+  }
+  
+  // Ocultar/mostrar barras
+  if (currentScroll > lastScroll && currentScroll > 200) {
+    // Scroll down - ocultar
+    if (navMini) navMini.classList.add('hidden');
+    if (bottombar) bottombar.classList.add('hidden');
+  } else {
+    // Scroll up - mostrar nav-mini
+    if (navMini) navMini.classList.remove('hidden');
+    // Mostrar bottombar solo cerca del inicio
+    if (currentScroll < SCROLL_THRESHOLD) {
+      if (bottombar) bottombar.classList.remove('hidden');
+    }
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// Mostrar primer título al cargar
+function setInitialSection() {
+  const firstTitle = document.querySelector('.prayer-title');
+  const currentSectionText = document.getElementById('currentSectionText');
+  if (firstTitle && currentSectionText) {
+    currentSectionText.textContent = firstTitle.textContent;
+  }
+}
+
+// Llamar al cargar
+document.addEventListener('DOMContentLoaded', setInitialSection);
