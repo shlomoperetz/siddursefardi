@@ -615,3 +615,8 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   color: #b8922e;
   font-size: 0.95em;
 }
+
+/* Ajuste tamaño icono urgencia */
+.btn-urgency {
+  font-size: 18px !important;
+}
