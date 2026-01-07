@@ -576,9 +576,20 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 }
 
 /* Botón izquierdo con texto hebreo */
-#leftBtn {
   color: #d4af37;
   font-size: 16px;
   font-family: var(--he-font);
   font-weight: 600;
+}
+
+/* Botón izquierdo con texto hebreo */
+#leftBtn {
+  font-size: 16px;
+  font-family: var(--he-font);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+#leftBtn:hover {
+  color: var(--fg);
 }
