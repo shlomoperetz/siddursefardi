@@ -142,8 +142,8 @@ header.topbar .brand .title{
 }
 
 header.topbar .brand .byline{
-  font-size: 16px;
-  color: var(--muted);
+  font-size: 14px;
+  color: #d4af37;
 }
 
 header.topbar .brand .byline a{
@@ -171,7 +171,7 @@ nav.controls .btn{
   font-family: var(--ui-font);
   font-size: 22px;
   font-weight: 650;
-  color: var(--muted);
+  color: #d4af37;
   border-radius: 16px;
   cursor:pointer;
   transition: color .15s ease;
@@ -222,7 +222,7 @@ nav.controls .btn:focus-visible{
   border: 0;
   background: transparent;
   font-size: 32px;
-  color: var(--muted);
+  color: #d4af37;
   cursor: pointer;
   padding: 0;
   width: 40px;
@@ -339,7 +339,7 @@ nav.controls .btn:focus-visible{
   justify-content: center;
   font-size: 26px;
   font-weight: 600;
-  color: var(--muted);
+  color: #d4af37;
   border-radius: 12px;
   cursor: pointer;
   transition: all .15s ease;
@@ -365,7 +365,7 @@ nav.controls .btn:focus-visible{
   justify-content: center;
   gap: 8px;
   font-family: var(--he-font);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #c49a2e;
   border-radius: 12px;
@@ -428,7 +428,7 @@ nav.bottombar a.bbtn{
   font-family: var(--he-font);
   font-size: 23px;
   font-weight: 650;
-  color: var(--muted);
+  color: #d4af37;
   text-decoration:none;
   transition: color .15s ease;
 }
@@ -468,7 +468,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   nav.bottombar a.bbtn{ font-size: 24px; }
   
   .nav-mini-section {
-    font-size: 16px;
+    font-size: 14px;
     padding: 0 14px;
     height: 52px;
   }
@@ -485,7 +485,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   }
   
   .sidebar-nav a {
-    font-size: 16px;
+    font-size: 14px;
     padding: 11px 13px;
   }
 }
@@ -509,7 +509,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #d4af37;
   opacity: 0.7;
   margin: 0 0 0.8rem 0;
   position: relative;
@@ -528,7 +528,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 .prayer-subtitle {
   font-size: 0.9em;
   font-weight: 500;
-  color: var(--muted);
+  color: #d4af37;
   opacity: 0.6;
   margin: 2em 0 0.8em;
   text-align: right;
@@ -559,14 +559,14 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 .sidebar-section-title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--muted);
+  color: #d4af37;
   opacity: 0.7;
   margin: 0 0 12px 0;
   letter-spacing: 0.03em;
 }
 
 .sidebar-nav-extra a {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -577,17 +577,17 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 
 /* Botón izquierdo con texto hebreo */
   color: #d4af37;
-  font-size: 16px;
+  font-size: 14px;
   font-family: var(--he-font);
   font-weight: 600;
 }
 
 /* Botón izquierdo con texto hebreo */
 #leftBtn {
-  font-size: 16px;
+  font-size: 14px;
   font-family: var(--he-font);
   font-weight: 600;
-  color: var(--muted);
+  color: #d4af37;
 }
 
 #leftBtn:hover {
