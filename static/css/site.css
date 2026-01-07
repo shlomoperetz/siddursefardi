@@ -795,3 +795,9 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
     gap: 8px;
   }
 }
+
+/* Nav-mini pegado al fondo cuando bottombar está oculto */
+.nav-mini.solo {
+  bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}

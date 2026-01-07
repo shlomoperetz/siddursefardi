@@ -180,3 +180,26 @@ function setInitialSection() {
 
 // Llamar al cargar
 document.addEventListener('DOMContentLoaded', setInitialSection);
+
+// Actualizar posición nav-mini cuando bottombar se oculta
+function updateNavMiniPosition() {
+  const navMini = document.querySelector('.nav-mini');
+  const bottombar = document.querySelector('.bottombar');
+  
+  if (navMini && bottombar) {
+    if (bottombar.classList.contains('hidden')) {
+      navMini.classList.add('solo');
+    } else {
+      navMini.classList.remove('solo');
+    }
+  }
+}
+
+// Observar cambios en bottombar
+const bottombarObserver = new MutationObserver(updateNavMiniPosition);
+document.addEventListener('DOMContentLoaded', function() {
+  const bottombar = document.querySelector('.bottombar');
+  if (bottombar) {
+    bottombarObserver.observe(bottombar, { attributes: true, attributeFilter: ['class'] });
+  }
+});
