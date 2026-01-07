@@ -557,7 +557,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 }
 
 .sidebar-section-title {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--muted);
   opacity: 0.7;
@@ -584,7 +584,7 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 
 /* Botón בהמ״ז */
 #leftBtn {
-  font-size: 13px;
+  font-size: 16px;
   font-family: var(--he-font);
   font-weight: 600;
   color: #c49a2e;
