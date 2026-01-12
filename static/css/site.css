@@ -862,3 +862,21 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
 .email-signup {
   position: relative;
 }
+
+/* Email wrapper con nota */
+.email-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.beta-note {
+  font-size: 9px;
+  opacity: 0.4;
+}
+
+/* Quitar el ::after anterior si existe */
+.email-signup::after {
+  display: none;
+}
