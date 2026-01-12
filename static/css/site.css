@@ -597,3 +597,16 @@ nav.bottombar a.bbtn.active::before{
 header.topbar { transition: transform .18s ease; }
 html.ui-hidden header.topbar,
 body.ui-hidden header.topbar { transform: translateY(-130%); }
+
+/* Fix nav-mini centrado */
+.nav-mini {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-mini-section {
+  flex: 1;
+  max-width: none;
+  margin: 0 10px;
+}
