@@ -1,6 +1,4 @@
-/* BUILD_TOKEN: 2026-01-06-NAVMINI-DYNAMIC
-   Siddur Sefardi — nav-mini dinámico
-*/
+/* BUILD_TOKEN: 2026-01-12-EMAIL-FIX */
 
 :root{
   --bg:#ffffff;
@@ -98,6 +96,7 @@ a:hover{ text-decoration:underline; }
   50% { opacity: 0.9; }
 }
 
+/* ========== TOPBAR ========== */
 header.topbar{
   position: sticky;
   top: 0;
@@ -109,24 +108,13 @@ header.topbar{
   padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
   padding-block: 14px;
   box-sizing: border-box;
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
+  display: flex;
+  align-items: center;
   gap: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  header.topbar:not(.light-mode header.topbar) {
-    background: rgba(10,10,10,.96);
-  }
-}
-
-header.topbar.dark-mode {
-  background: rgba(10,10,10,.96);
-}
-
 header.topbar .brand{
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 6px;
   line-height: 1.12;
@@ -153,35 +141,89 @@ header.topbar .brand .byline a{
 header.topbar .brand .byline a:hover{ text-decoration: underline; }
 
 nav.controls{
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 14px;
   padding-left: 6px;
+  margin-left: auto;
 }
 
 nav.controls .btn{
-  appearance:none;
-  border:0;
-  background:transparent;
+  appearance: none;
+  border: 0;
+  background: transparent;
   width: 58px;
   height: 58px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--ui-font);
   font-size: 22px;
   font-weight: 650;
   color: var(--muted);
   border-radius: 16px;
-  cursor:pointer;
+  cursor: pointer;
   transition: color .15s ease;
 }
 nav.controls .btn:hover{ color: var(--fg); }
-nav.controls .btn:focus-visible{
-  outline:2px solid rgba(128,128,128,.35);
-  outline-offset:2px;
+
+/* Email signup en topbar */
+.email-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0 auto;
 }
 
+.email-signup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.email-signup input[type="email"] {
+  padding: 6px 10px;
+  border: 1px solid rgba(128,128,128,0.3);
+  border-radius: 4px;
+  font-size: 13px;
+  width: 140px;
+  background: transparent;
+  color: inherit;
+  direction: rtl;
+}
+
+.email-signup input[type="email"]::placeholder {
+  color: rgba(128,128,128,0.6);
+}
+
+.email-signup button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: #d4af37;
+  color: #000;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.email-signup button:hover {
+  opacity: 0.9;
+}
+
+.beta-note {
+  font-size: 9px;
+  opacity: 0.4;
+}
+
+@media (max-width: 500px) {
+  .email-wrapper {
+    display: none;
+  }
+}
+
+/* ========== SIDEBAR ========== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -197,9 +239,7 @@ nav.controls .btn:focus-visible{
   box-sizing: border-box;
 }
 
-.sidebar.open {
-  right: 0;
-}
+.sidebar.open { right: 0; }
 
 .sidebar-header {
   display: flex;
@@ -230,12 +270,9 @@ nav.controls .btn:focus-visible{
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
 }
 
-.sidebar-close:hover {
-  color: var(--fg);
-}
+.sidebar-close:hover { color: var(--fg); }
 
 .sidebar-nav {
   display: flex;
@@ -251,13 +288,9 @@ nav.controls .btn:focus-visible{
   font-size: 17px;
   font-weight: 500;
   transition: background .15s ease;
-  line-height: 1.4;
 }
 
-.sidebar-nav a:hover {
-  background: rgba(128,128,128,.08);
-}
-
+.sidebar-nav a:hover { background: rgba(128,128,128,.08); }
 .sidebar-nav a.active {
   background: rgba(212,175,55,.15);
   color: #d4af37;
@@ -281,7 +314,21 @@ nav.controls .btn:focus-visible{
   pointer-events: auto;
 }
 
-/* NAV-MINI: Posición dinámica controlada por JS */
+.sidebar-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(128,128,128,.12);
+}
+
+.sidebar-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 0.7;
+  margin: 0 0 12px 0;
+}
+
+/* ========== NAV-MINI ========== */
 .nav-mini {
   position: fixed;
   left: 0;
@@ -293,8 +340,6 @@ nav.controls .btn:focus-visible{
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(128,128,128,.12);
   padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
-  padding-top: 2px;
-  padding-bottom: 0;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 56px 1fr 56px;
@@ -303,29 +348,15 @@ nav.controls .btn:focus-visible{
   transition: opacity .3s ease, transform .3s ease, bottom .3s ease;
 }
 
-/* Estado: oculto (scroll down) */
 .nav-mini.hidden {
   opacity: 0;
   pointer-events: none;
   transform: translateY(100%);
 }
 
-/* Estado: solo (sin bottombar, pegado al fondo) */
 .nav-mini.solo {
   bottom: 0;
   padding-bottom: env(safe-area-inset-bottom);
-}
-
-@media (prefers-color-scheme: dark) {
-  .nav-mini:not(.light-mode .nav-mini) {
-    background: rgba(10,10,10,1);
-    border-top-color: rgba(128,128,128,.2);
-  }
-}
-
-.nav-mini.dark-mode {
-  background: rgba(10,10,10,1);
-  border-top-color: rgba(128,128,128,.2);
 }
 
 .nav-mini-btn {
@@ -350,8 +381,16 @@ nav.controls .btn:focus-visible{
   background: rgba(128,128,128,.08);
 }
 
-.nav-mini-btn.bookmarked {
-  color: #d4af37;
+.nav-mini-urgency {
+  color: #c49a2e;
+  font-size: 18px;
+}
+
+#leftBtn {
+  font-size: 16px;
+  font-family: var(--he-font);
+  font-weight: 600;
+  color: #c49a2e;
 }
 
 .nav-mini-section {
@@ -376,70 +415,56 @@ nav.controls .btn:focus-visible{
   text-overflow: ellipsis;
 }
 
-.nav-mini-section:hover {
-  background: rgba(212,175,55,.18);
-}
+.nav-mini-section:hover { background: rgba(212,175,55,.18); }
+.nav-mini-section .arrow { font-size: 12px; opacity: 0.7; }
 
-.nav-mini-section .arrow {
-  font-size: 12px;
-  opacity: 0.7;
-}
-
+/* ========== BOTTOMBAR ========== */
 nav.bottombar{
   position: fixed;
-  left: 0; right: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 220;
   height: var(--bottombar-h);
   padding-top: 12px;
   padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
   background: rgba(255,255,255,.96);
   backdrop-filter: blur(10px);
-  border: 0;
-  padding-inline: max(var(--pad), calc((100vw - var(--maxw)) / 2));
   box-sizing: border-box;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: 0;
+  display: flex;
   align-items: center;
-  transition: transform .3s ease;
+  justify-content: center;
+  gap: 0;
+  transition: transform .3s ease, opacity .3s ease;
 }
 
 nav.bottombar.hidden {
   transform: translateY(100%);
-}
-
-@media (prefers-color-scheme: dark) {
-  nav.bottombar:not(.light-mode nav.bottombar) {
-    background: rgba(10,10,10,.96);
-  }
-}
-
-nav.bottombar.dark-mode {
-  background: rgba(10,10,10,.96);
+  opacity: 0;
+  pointer-events: none;
 }
 
 nav.bottombar a.bbtn{
+  flex: 1;
   position: relative;
   height: var(--bottombar-h);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--he-font);
   font-size: 23px;
   font-weight: 650;
   color: var(--muted);
-  text-decoration:none;
+  text-decoration: none;
   transition: color .15s ease;
 }
 
-nav.bottombar a.bbtn.active{
-  color: var(--fg);
-}
+nav.bottombar a.bbtn.active{ color: var(--fg); }
 
 nav.bottombar a.bbtn.active::before{
-  content:"";
-  position:absolute;
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -448,56 +473,41 @@ nav.bottombar a.bbtn.active::before{
   opacity: .9;
 }
 
-header.topbar{ transition: transform .18s ease; }
-html.ui-hidden header.topbar,
-body.ui-hidden header.topbar{ transform: translateY(-130%); }
-
-@media (max-width:520px){
-  :root{
-    --pad: 16px;
-    --font: 20px;
-    --topbar-h: 88px;
-    --bottombar-h: 84px;
-    --navmini-h: 60px;
-  }
-  
-  .page {
-    padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 30px + env(safe-area-inset-bottom));
-  }
-  
-  nav.bottombar a.bbtn{ font-size: 24px; }
-  
-  .nav-mini-section {
-    font-size: 16px;
-    padding: 0 14px;
-    height: 52px;
-  }
-  
-  .nav-mini-btn {
-    width: 54px;
-    height: 54px;
-    font-size: 28px;
-  }
-  
-  .sidebar {
-    width: 280px;
-    right: -300px;
-  }
-  
-  .sidebar-nav a {
-    font-size: 16px;
-    padding: 11px 13px;
-  }
+.minyan-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(128,128,128,0.15);
 }
 
-/* ========== BLOQUES DE REZO (ESTILO EDITORIAL) ========== */
-.prayer-block {
-  margin: 4rem 0;
+.minyan-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.35;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  border-radius: 6px;
 }
 
-.prayer-block:first-of-type {
-  margin-top: 2rem;
+.minyan-btn.active {
+  opacity: 1;
+  background: rgba(212,175,55,0.1);
 }
+
+.minyan-btn:hover { opacity: 0.7; }
+
+/* ========== PRAYER BLOCKS ========== */
+.prayer-block { margin: 4rem 0; }
+.prayer-block:first-of-type { margin-top: 2rem; }
 
 .prayer-header {
   text-align: center;
@@ -512,7 +522,6 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   color: var(--muted);
   opacity: 0.7;
   margin: 0 0 0.8rem 0;
-  position: relative;
 }
 
 .prayer-title::after {
@@ -539,333 +548,52 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   padding-top: 3rem;
 }
 
+/* ========== DARK MODE ========== */
 @media (prefers-color-scheme: dark) {
-  .prayer-block + .prayer-block {
-    border-top-color: rgba(255,255,255,0.06);
+  header.topbar:not(.light-mode header.topbar) { background: rgba(10,10,10,.96); }
+  nav.bottombar:not(.light-mode nav.bottombar) { background: rgba(10,10,10,.96); }
+  .nav-mini:not(.light-mode .nav-mini) {
+    background: rgba(10,10,10,1);
+    border-top-color: rgba(128,128,128,.2);
   }
+  .sidebar-section { border-top-color: rgba(255,255,255,.08); }
+  .prayer-block + .prayer-block { border-top-color: rgba(255,255,255,0.06); }
 }
 
-.prayer-block.dark-mode + .prayer-block.dark-mode {
-  border-top-color: rgba(255,255,255,0.06);
-}
-
-/* ========== SIDEBAR SECCIONES ADICIONALES ========== */
-.sidebar-section {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(128,128,128,.12);
-}
-
-.sidebar-section-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--muted);
-  opacity: 0.7;
-  margin: 0 0 12px 0;
-  letter-spacing: 0.03em;
-}
-
-.sidebar-nav-extra a {
-  font-size: 16px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .sidebar-section {
-    border-top-color: rgba(255,255,255,.08);
-  }
-}
-
-/* Botón izquierdo con texto hebreo */
-#leftBtn {
-  font-size: 14px;
-  font-family: var(--he-font);
-  font-weight: 600;
-}
-
-/* Botón בהמ״ז */
-#leftBtn {
-  font-size: 16px;
-  font-family: var(--he-font);
-  font-weight: 600;
-  color: #c49a2e;
-}
-
-/* Botón de urgencia/tefilá mínima */
-.btn-urgency {
-  color: #d4af37 !important;
-  text-decoration: none;
-}
-
-.btn-urgency:hover {
-  color: #b8922e !important;
-}
-
-/* Aviso de urgencia */
-.urgency-notice {
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 2.5rem;
-  text-align: center;
-}
-
-.urgency-notice p {
-  margin: 0.3rem 0;
-  color: #b8922e;
-  font-size: 0.95em;
-}
-
-/* Ajuste tamaño icono urgencia */
-.btn-urgency {
-  font-size: 18px !important;
-}
-
-/* Fix hover botón urgencia */
-.btn-urgency:hover {
-  text-decoration: none !important;
-}
-
-.btn-urgency {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* Minyan toggle en bottombar */
-.minyan-toggle {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-left: 8px;
-  padding-left: 8px;
-  border-left: 1px solid rgba(128,128,128,0.2);
-}
-
-.minyan-btn {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  font-size: 18px;
-  padding: 8px;
-  opacity: 0.4;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.minyan-btn.active {
-  opacity: 1;
-}
-
-.minyan-btn:hover {
-  opacity: 0.8;
-}
-
-/* Botón urgencia en nav-mini */
-.nav-mini-urgency {
-  color: #d4af37;
-}
-
-
-/* Fix minyan toggle */
-.minyan-toggle {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: auto;
-  padding-left: 12px;
-  border-left: 1px solid rgba(128,128,128,0.15);
-}
-
-.minyan-btn {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  font-size: 16px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.35;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  border-radius: 6px;
-}
-
-.minyan-btn.active {
-  opacity: 1;
-  background: rgba(212,175,55,0.1);
-}
-
-.minyan-btn:hover {
-  opacity: 0.7;
-}
-
-/* Fix urgency button */
-.nav-mini-urgency {
-  color: #c49a2e;
-  font-size: 18px;
-}
-
-/* Dark mode fixes */
+.dark-mode .topbar,
 .dark-mode .bottombar,
 .dark-mode .nav-mini {
   background: #1a1a1a;
   border-color: rgba(255,255,255,0.1);
 }
 
-.dark-mode .minyan-toggle {
-  border-left-color: rgba(255,255,255,0.1);
-}
+.dark-mode .topbar .title { color: rgba(255,255,255,0.9); }
+.dark-mode .topbar .byline a { color: rgba(255,255,255,0.5); }
+.dark-mode .topbar .btn { color: rgba(255,255,255,0.7); }
+.dark-mode .minyan-toggle { border-left-color: rgba(255,255,255,0.1); }
+.dark-mode .bbtn { color: rgba(255,255,255,0.7); }
+.dark-mode .bbtn.active { color: #d4af37; }
+.dark-mode .minyan-btn { opacity: 0.4; }
+.dark-mode .minyan-btn.active { opacity: 1; background: rgba(212,175,55,0.15); }
 
-.dark-mode .bbtn {
-  color: rgba(255,255,255,0.7);
-}
-
-.dark-mode .bbtn.active {
-  color: #d4af37;
-}
-
-.dark-mode .minyan-btn {
-  opacity: 0.4;
-}
-
-.dark-mode .minyan-btn.active {
-  opacity: 1;
-  background: rgba(212,175,55,0.15);
-}
-
-/* Dark mode topbar */
-.dark-mode .topbar {
-  background: #1a1a1a;
-  border-bottom-color: rgba(255,255,255,0.1);
-}
-
-.dark-mode .topbar .title {
-  color: rgba(255,255,255,0.9);
-}
-
-.dark-mode .topbar .byline a {
-  color: rgba(255,255,255,0.5);
-}
-
-.dark-mode .topbar .btn {
-  color: rgba(255,255,255,0.7);
-}
-
-/* Ajustar posición minyan toggle para simetría */
-.minyan-toggle {
-  margin-right: 8px;
-}
-
-/* Ajustar espaciado bottombar */
-.bottombar {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* Ocultar barras con transición */
-.nav-mini.hidden {
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.bottombar.hidden {
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.nav-mini,
-.bottombar {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* Centrar mejor los iconos minyan en desktop */
-@media (min-width: 600px) {
-  .minyan-toggle {
-    margin-right: 20px;
-    gap: 4px;
+/* ========== RESPONSIVE ========== */
+@media (max-width:520px){
+  :root{
+    --pad: 16px;
+    --font: 20px;
+    --topbar-h: 88px;
+    --bottombar-h: 84px;
+    --navmini-h: 60px;
   }
   
-  .bottombar {
-    justify-content: center;
-    gap: 8px;
-  }
+  .page { padding-bottom: calc(var(--bottombar-h) + var(--navmini-h) + 30px + env(safe-area-inset-bottom)); }
+  nav.bottombar a.bbtn { font-size: 24px; }
+  .nav-mini-section { font-size: 16px; padding: 0 14px; height: 52px; }
+  .nav-mini-btn { width: 54px; height: 54px; font-size: 28px; }
+  .sidebar { width: 280px; right: -300px; }
+  .sidebar-nav a { font-size: 16px; padding: 11px 13px; }
 }
 
-/* Nav-mini pegado al fondo cuando bottombar está oculto */
-.nav-mini.solo {
-  bottom: 0;
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-
-/* Email signup en topbar */
-.email-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.email-signup {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.email-signup input[type="email"] {
-  padding: 6px 10px;
-  border: 1px solid rgba(128,128,128,0.3);
-  border-radius: 4px;
-  font-size: 13px;
-  width: 140px;
-  background: transparent;
-  color: inherit;
-  direction: rtl;
-}
-
-.email-signup input[type="email"]::placeholder {
-  color: rgba(128,128,128,0.6);
-}
-
-.email-signup button {
-  padding: 6px 12px;
-  border: 0;
-  border-radius: 4px;
-  background: var(--accent, #d4af37);
-  color: #000;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.email-signup button:hover {
-  opacity: 0.9;
-}
-
-.beta-note {
-  font-size: 9px;
-  opacity: 0.4;
-}
-
-@media (max-width: 500px) {
-  .email-wrapper {
-    display: none;
-  }
-}
-
-/* Fix bottombar grid */
-@media (min-width: 600px) {
-  .bottombar {
-    justify-content: stretch;
-  }
-}
-
-nav.bottombar {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-}
+header.topbar { transition: transform .18s ease; }
+html.ui-hidden header.topbar,
+body.ui-hidden header.topbar { transform: translateY(-130%); }
