@@ -16,6 +16,14 @@
         <button class="btn" onclick="adjustFont(1)">A+</button>
       </nav>
       
+      <div class="email-wrapper">
+        <form class="email-signup" id="emailForm" onsubmit="return submitEmail(event)">
+          <input type="email" id="emailInput" placeholder="דוא״ל" required>
+          <button type="submit" id="emailBtn">הרשם</button>
+        </form>
+        <span class="beta-note" id="emailNote">בבנייה · נעדכן כשנשלים</span>
+      </div>
+      
       <div class="brand">
         <div class="title">סידור ספרדי</div>
         <div class="byline">
@@ -74,6 +82,47 @@
     </nav>
     
     <script src="/js/ui.js?v={{ now.Unix }}" defer></script>
-    <script async src="https://eomail5.com/form/91ab11ee-eb3a-11f0-9ccb-713cda507fed.js" data-form="91ab11ee-eb3a-11f0-9ccb-713cda507fed"></script>
+    <script>
+    function submitEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const btn = document.getElementById('emailBtn');
+      const note = document.getElementById('emailNote');
+      
+      btn.textContent = '...';
+      btn.disabled = true;
+      
+      fetch('https://emailoctopus.com/api/1.6/lists/12ce1694-eb28-11f0-a5c6-7fe03826a50c/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: 'eo_4625bf35280714bf386333909c3d7c53639ab2b97e8ec34d13d2e681b1e20e56',
+          email_address: email
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.id || data.status === 'SUBSCRIBED' || data.status === 'PENDING') {
+          btn.textContent = '✓';
+          note.textContent = 'תודה! נעדכן אותך';
+          document.getElementById('emailInput').style.display = 'none';
+        } else if (data.error && data.error.code === 'MEMBER_EXISTS_WITH_EMAIL_ADDRESS') {
+          btn.textContent = '✓';
+          note.textContent = 'כבר רשום';
+        } else {
+          btn.textContent = '✗';
+          note.textContent = 'שגיאה, נסה שוב';
+          setTimeout(() => { btn.textContent = 'הרשם'; btn.disabled = false; }, 2000);
+        }
+      })
+      .catch(() => {
+        btn.textContent = '✗';
+        note.textContent = 'שגיאה, נסה שוב';
+        setTimeout(() => { btn.textContent = 'הרשם'; btn.disabled = false; }, 2000);
+      });
+      
+      return false;
+    }
+    </script>
   </body>
 </html>
