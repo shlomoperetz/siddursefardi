@@ -766,3 +766,32 @@ body.ui-hidden header.topbar { transform: translateY(-130%); }
 .sidebar-controls button:hover {
   background: rgba(128,128,128,.1);
 }
+
+/* Sidebar fullscreen en todos los dispositivos */
+.sidebar {
+  width: 100vw !important;
+  right: -100vw !important;
+}
+
+.sidebar.open {
+  right: 0 !important;
+}
+
+.sidebar-nav a {
+  font-size: 1.25rem;
+  padding: 16px 20px;
+  display: block;
+  border-bottom: 1px solid rgba(128,128,128,.1);
+}
+
+.sidebar-header {
+  padding: 15px 20px 20px;
+}
+
+.sidebar-header h3 {
+  font-size: 1.4rem;
+}
+
+.sidebar-close {
+  font-size: 2.5rem;
+}
