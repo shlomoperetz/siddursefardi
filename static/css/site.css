@@ -801,3 +801,48 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   bottom: 0;
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* Email signup en topbar */
+.email-signup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 auto;
+}
+
+.email-signup input[type="email"] {
+  padding: 6px 10px;
+  border: 1px solid rgba(128,128,128,0.3);
+  border-radius: 4px;
+  font-size: 13px;
+  width: 140px;
+  background: transparent;
+  color: inherit;
+  direction: rtl;
+}
+
+.email-signup input[type="email"]::placeholder {
+  color: rgba(128,128,128,0.6);
+}
+
+.email-signup button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--accent, #d4af37);
+  color: #000;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.email-signup button:hover {
+  opacity: 0.9;
+}
+
+/* Ocultar en móvil si hay poco espacio */
+@media (max-width: 500px) {
+  .email-signup {
+    display: none;
+  }
+}
