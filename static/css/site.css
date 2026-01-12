@@ -857,3 +857,15 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
     display: none;
   }
 }
+
+/* Fix bottombar grid */
+@media (min-width: 600px) {
+  .bottombar {
+    justify-content: stretch;
+  }
+}
+
+nav.bottombar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+}
