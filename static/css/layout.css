@@ -1,0 +1,114 @@
+/* Layout split view */
+:root {
+  --sidebar-width: 280px;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  padding-top: 60px; /* espacio topbar */
+  padding-bottom: 50px; /* espacio bottombar */
+  box-sizing: border-box;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - 110px);
+  background: var(--bg);
+  border-left: 1px solid rgba(128,128,128,.15);
+  z-index: 100;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  transition: margin-right 0.3s ease;
+  height: 100%;
+}
+
+.sidebar.open ~ .main-content,
+body.sidebar-open .main-content {
+  margin-right: var(--sidebar-width);
+}
+
+/* Sección activa */
+.sidebar-nav a {
+  display: block;
+  padding: 14px 20px;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(128,128,128,.1);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(128,128,128,.05);
+}
+
+.sidebar-nav a.active {
+  color: #d4af37;
+  background: rgba(212,175,55,.1);
+  border-right: 3px solid #d4af37;
+}
+
+/* Controles sidebar */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(128,128,128,.15);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
+.sidebar-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.sidebar-controls button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(128,128,128,.3);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sidebar-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  :root {
+    --sidebar-width: 65vw;
+  }
+}

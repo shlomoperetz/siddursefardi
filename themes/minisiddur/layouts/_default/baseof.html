@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
     <link rel="stylesheet" href="{{ "css/site.css" | relURL }}?v={{ now.Unix }}">
+    <link rel="stylesheet" href="{{ "css/layout.css" | relURL }}?v={{ now.Unix }}">
   </head>
   <body>
     <div class="reading-progress"></div>
@@ -30,26 +31,19 @@
     
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h3>ניווט מהיר</h3>
+        <div class="sidebar-controls">
+          <button onclick="adjustSidebarFont(-2)" title="הקטן">A−</button>
+          <button onclick="adjustSidebarFont(2)" title="הגדל">A+</button>
+        </div>
         <button class="sidebar-close" onclick="closeSidebar()">×</button>
       </div>
-      
-      <div class="sidebar-controls"><button onclick="adjustSidebarFont(-2)">A−</button><button onclick="adjustSidebarFont(2)">A+</button></div><nav class="sidebar-nav" id="sidebarNav">
-      </nav>
-      
-      <div class="sidebar-section">
-        <h4 class="sidebar-section-title">תפילות נוספות</h4>
-        <nav class="sidebar-nav sidebar-nav-extra">
-          <a href="/extra/birkat-hamazon/">בִּרְכַּת הַמָּזוֹן</a>
-          <a href="/extra/tefilat-haderech/">תְּפִלַּת הַדֶּרֶךְ</a>
-        </nav>
-      </div>
+      <nav class="sidebar-nav" id="sidebarNav"></nav>
     </aside>
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
     
-{{- partial "beta-banner.html" . -}}
-    <main class="page">
-      {{ block "main" . }}{{ end }}
+    <main class="main-content" id="mainContent">
+      <div class="page">
+        {{ block "main" . }}{{ end }}
+      </div>
     </main>
     
     <nav class="nav-mini" id="navMini">
@@ -61,7 +55,7 @@
         <span id="leftBtnIcon">בהמ״ז</span>
       </button>
       
-      <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSectionMenu()">
+      <button class="nav-mini-section" id="currentSectionBtn" onclick="toggleSidebar()">
         <span id="currentSectionText">...</span>
         <span class="arrow">▼</span>
       </button>
