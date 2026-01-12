@@ -670,3 +670,9 @@ body.ui-hidden header.topbar { transform: translateY(-130%); }
 .brand .title:hover {
   opacity: 0.8;
 }
+
+/* Texto justificado estilo siddur */
+.prayer-block p {
+  text-align: justify;
+  text-align-last: right;
+}
