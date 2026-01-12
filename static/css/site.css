@@ -703,3 +703,34 @@ body.ui-hidden header.topbar { transform: translateY(-130%); }
     padding: 10px 20px;
   }
 }
+
+/* Sidebar fullscreen en móvil - override */
+@media (max-width: 600px) {
+  .sidebar {
+    width: 100vw !important;
+    right: -100vw !important;
+  }
+  
+  .sidebar.open {
+    right: 0 !important;
+  }
+  
+  .sidebar-nav a {
+    font-size: 1.25rem !important;
+    padding: 16px 20px !important;
+    display: block;
+    border-bottom: 1px solid rgba(128,128,128,.1);
+  }
+  
+  .sidebar-header {
+    padding: 15px 5px 20px;
+  }
+  
+  .sidebar-header h3 {
+    font-size: 1.4rem !important;
+  }
+  
+  .sidebar-close {
+    font-size: 2.5rem !important;
+  }
+}
