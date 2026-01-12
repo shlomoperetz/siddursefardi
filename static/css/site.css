@@ -846,3 +846,19 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
     display: none;
   }
 }
+
+/* Texto construcción bajo email */
+.email-signup::after {
+  content: "בבנייה · נעדכן כשנשלים";
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.email-signup {
+  position: relative;
+}
