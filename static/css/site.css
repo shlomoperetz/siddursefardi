@@ -802,12 +802,19 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+
 /* Email signup en topbar */
+.email-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
 .email-signup {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 auto;
 }
 
 .email-signup input[type="email"] {
@@ -840,43 +847,13 @@ body.ui-hidden header.topbar{ transform: translateY(-130%); }
   opacity: 0.9;
 }
 
-/* Ocultar en móvil si hay poco espacio */
-@media (max-width: 500px) {
-  .email-signup {
-    display: none;
-  }
-}
-
-/* Texto construcción bajo email */
-.email-signup::after {
-  content: "בבנייה · נעדכן כשנשלים";
-  position: absolute;
-  bottom: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  opacity: 0.5;
-  white-space: nowrap;
-}
-
-.email-signup {
-  position: relative;
-}
-
-/* Email wrapper con nota */
-.email-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
 .beta-note {
   font-size: 9px;
   opacity: 0.4;
 }
 
-/* Quitar el ::after anterior si existe */
-.email-signup::after {
-  display: none;
+@media (max-width: 500px) {
+  .email-wrapper {
+    display: none;
+  }
 }
