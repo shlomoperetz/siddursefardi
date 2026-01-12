@@ -734,3 +734,35 @@ body.ui-hidden header.topbar { transform: translateY(-130%); }
     font-size: 2.5rem !important;
   }
 }
+
+/* Sección activa en sidebar */
+.sidebar-nav a.active {
+  color: #d4af37 !important;
+  background: rgba(212,175,55,.1);
+  border-right: 3px solid #d4af37;
+}
+
+/* Controles de tamaño en sidebar */
+.sidebar-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid rgba(128,128,128,.15);
+  margin-bottom: 10px;
+}
+
+.sidebar-controls button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(128,128,128,.3);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar-controls button:hover {
+  background: rgba(128,128,128,.1);
+}

@@ -203,3 +203,51 @@ document.addEventListener('DOMContentLoaded', function() {
     bottombarObserver.observe(bottombar, { attributes: true, attributeFilter: ['class'] });
   }
 });
+
+// Marcar sección activa en sidebar
+function updateActiveSidebarLink() {
+  const links = document.querySelectorAll('.sidebar-nav a');
+  const currentText = document.getElementById('currentSectionText')?.textContent;
+  
+  links.forEach(link => {
+    if (link.textContent === currentText) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+// Llamar cuando se abre el sidebar
+const originalOpenSidebar = openSidebar;
+openSidebar = function() {
+  originalOpenSidebar();
+  updateActiveSidebarLink();
+  // Scroll al elemento activo
+  setTimeout(() => {
+    const active = document.querySelector('.sidebar-nav a.active');
+    if (active) active.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, 100);
+};
+
+// Ajustar tamaño de fuente del sidebar
+let sidebarFontSize = 20;
+
+function adjustSidebarFont(delta) {
+  sidebarFontSize = Math.max(14, Math.min(32, sidebarFontSize + delta));
+  document.querySelectorAll('.sidebar-nav a').forEach(a => {
+    a.style.fontSize = sidebarFontSize + 'px';
+  });
+  localStorage.setItem('siddur_sidebarFontSize', sidebarFontSize);
+}
+
+// Cargar tamaño guardado
+document.addEventListener('DOMContentLoaded', function() {
+  const saved = localStorage.getItem('siddur_sidebarFontSize');
+  if (saved) {
+    sidebarFontSize = parseInt(saved);
+    document.querySelectorAll('.sidebar-nav a').forEach(a => {
+      a.style.fontSize = sidebarFontSize + 'px';
+    });
+  }
+});
