@@ -16,16 +16,15 @@
         <button class="btn" onclick="adjustFont(1)">A+</button>
       </nav>
       
-      <div class="email-wrapper">
-        <script async src="https://eomail5.com/form/a9b0f2ec-efde-11f0-8593-071a057e1d58.js" data-form="a9b0f2ec-efde-11f0-8593-071a057e1d58"></script>
-        <span class="beta-note">בבנייה · נעדכן כשנשלים</span>
-      </div>
+      <form class="email-form" id="emailForm" onsubmit="return submitEmail(event)">
+        <input type="email" id="emailInput" name="email" placeholder="דוא״ל" required>
+        <button type="submit" id="emailBtn">הרשם</button>
+      </form>
       
       <div class="brand">
         <div class="title">סידור ספרדי</div>
-        <div class="byline">
-          <a href="https://shlomoperetz.com">by Shlomo Peretz</a>
-        </div>
+        <div class="byline">by Shlomo Peretz</div>
+        <span class="beta-note">בבנייה · נעדכן כשנשלים</span>
       </div>
     </header>
     
@@ -79,5 +78,44 @@
     </nav>
     
     <script src="/js/ui.js?v={{ now.Unix }}" defer></script>
+    <script>
+    function submitEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      const btn = document.getElementById('emailBtn');
+      const input = document.getElementById('emailInput');
+      
+      btn.disabled = true;
+      btn.textContent = '...';
+      
+      fetch('https://script.google.com/macros/s/AKfycbx2MY1ystO7ZNTnhrlRGFyhKqgEyIJRUpnoWF07Z7m9qddqE6EVtfaFMMbOk447wUpj6w/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'email=' + encodeURIComponent(email)
+      })
+      .then(() => {
+        btn.textContent = '✓';
+        btn.style.background = '#2e7d32';
+        input.value = '';
+        input.placeholder = '!תודה';
+        setTimeout(() => {
+          btn.textContent = 'הרשם';
+          btn.style.background = '';
+          btn.disabled = false;
+          input.placeholder = 'דוא״ל';
+        }, 3000);
+      })
+      .catch(() => {
+        btn.textContent = '✗';
+        setTimeout(() => {
+          btn.textContent = 'הרשם';
+          btn.disabled = false;
+        }, 2000);
+      });
+      
+      return false;
+    }
+    </script>
   </body>
 </html>
