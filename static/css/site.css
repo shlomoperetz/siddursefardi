@@ -660,3 +660,13 @@ body.ui-hidden header.topbar { transform: translateY(-130%); }
     display: none;
   }
 }
+
+/* Título como link */
+.brand .title {
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand .title:hover {
+  opacity: 0.8;
+}
